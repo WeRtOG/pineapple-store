@@ -1,0 +1,349 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+}
+html {
+    height: 100%;
+    display: flex;
+    background: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
+} 
+body {
+    background-size: cover;
+    min-height: 100%;
+    flex: 1;
+}
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px;
+    background: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+header .menu {
+    display: flex;
+}
+header a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    min-width: 150px;
+    padding-left: 30px;
+    padding-right: 30px;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px;
+}
+header a.auth {
+    font-weight: 200;
+    color: rgba(255,255,255,.6);
+}
+header a:hover {
+    background: rgba(255,255,255,.02);
+}
+header a.active {
+    background: rgba(255,255,255,.05);
+    font-weight: 400;
+}
+header img {
+    height: 100%;
+}
+.main-content {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+}
+.slide-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+.slide-wrapper .sneaker {
+    position: absolute;
+    right: -250px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 1000px;
+    z-index: 0;
+    filter: brightness(1) grayscale(0.95) hue-rotate(2022deg);
+    user-select: none;
+}
+.slide-text {
+    max-width: 700px;
+    position: relative;
+    z-index: 1;
+}
+.slide-text h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4em;
+    font-weight: 400;
+    margin: 0;
+}
+.slide-text p {
+    font-size: 2em;
+    margin: 0;
+}
+.slide-text a {
+    margin-top: 50px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 400px;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(255,255,255,.1);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.slide-text a p {
+    z-index: 2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+.slide-text a p .material-icons {
+    margin-left: 2px;
+}
+.slide-text a::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    width: 90%;
+    border-radius: 100%;
+    height: 100%;
+    content: '';
+    background-image: linear-gradient(45deg, #0fd850 0%, #f9f047 100%);
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateY(70px) scale(1.5);
+}
+.slide-text a:hover::before {
+    opacity: 1;
+    width: 100%;
+    border-radius: 0px;
+    transform: translateY(0px) scale(1);
+}
+.slide-text a:hover {
+    color: #000;
+}
+.anix {
+    opacity: 0;
+}
+.catalog-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.catalog-wrapper .catalog {
+    box-sizing: border-box;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.catalog-wrapper .catalog h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3em;
+    font-weight: 400;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+.catalog-wrapper .catalog h1:first-of-type {
+    padding-top: 70px;
+    margin-top: 80px;
+}
+.catalog-wrapper .catalog .carousel {
+    height: 300px;
+    width: calc(100%);
+    overflow: hidden;
+}
+.catalog-wrapper .catalog .carousel .card {
+    background-size: cover;
+    border-radius: 8px;
+    width: 443px;
+    height: 224px;
+    background-position: center;
+    margin: 10px;
+    transform: scale(0.9);
+    transition: all 0.1s ease !important;
+    opacity: .6;
+    outline: none;
+    font-size: 20px;
+    position: relative;
+}
+.catalog-wrapper .catalog .carousel .card h3 {
+    user-select: none;
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    right: 0;
+    margin: auto;
+    text-shadow: 0px 2px 9px rgba(0,0,0,.7);
+}
+.catalog-wrapper .catalog .carousel .card.slick-current {
+    transform: scale(1);
+    opacity: 1;
+    font-size: 24px;
+    transition: all 0.1s ease !important;
+}
+article.item-card {
+    width: 280px;
+    height: 400px;
+    background: white;
+    border-radius: 5px;
+    margin: 10px;
+    outline: none;
+    color: black;
+    text-align: center;
+}
+article.item-card img {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+article.item-card h2 {
+    margin-bottom: 5px;
+    font-size: 1.6em;
+}
+article.item-card h3 {
+    margin: 0;
+}
+article.item-card h4 {
+    margin: 0;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+article.item-card button {
+    padding: 10px;
+    margin: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    background: black;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+}
+article.item-card button p {
+    z-index: 2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: 0;
+}
+article.item-card button p .material-icons {
+    margin-right: 2px;
+    font-size: 1.2em;
+}
+article.item-card button:hover {
+    background: #222;
+}
+.catalog-wrapper .catalog .all-items {
+    display: flex;
+}
+.catalog-wrapper .catalog .all-items .all-items-sidebar {
+    width: 600px;
+}
+.catalog-wrapper .catalog .all-items .all-items-sidebar h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.catalog-wrapper .catalog .all-items .all-items-sidebar h2 .text {
+    margin-right: 5px;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+.catalog-wrapper .catalog .all-items .all-items-sidebar h2 img {
+    width: 24px;
+    height: 24px;
+}
+.catalog-wrapper .catalog .all-items-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(34, 34, 39);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(51, 51, 59);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(51, 51, 59);
+}
+@media (min-device-width: 2000px){
+    html{
+        zoom: 2;
+        zoom: 200%;
+    }
+}
+@media (max-device-width: 1400px){
+    .slide-wrapper .sneaker {
+        height: 600px;
+        right: -150px;
+    }
+}
