@@ -28,5 +28,37 @@
                 'Client' => $this->SessionClient->Client
             ]);
         }
+        /**
+         * Экшн для смены пароля
+         */
+        public function action_ChangePassword()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    Route::Navigate('cabinet');
+                    break;
+                case 'POST':
+                    $Password = $this->AuthHelper->POSTSafeField('password');
+                    $this->SessionClient->ChangePassword($Password);
+                    Route::Navigate('cabinet');
+                    break;
+            }
+        }
+        /**
+         * Экшн для смены имени
+         */
+        public function action_ChangeName()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    Route::Navigate('cabinet');
+                    break;
+                case 'POST':
+                    $Name = $this->AuthHelper->POSTSafeField('name');
+                    $this->SessionClient->ChangeName($Name);
+                    Route::Navigate('cabinet');
+                    break;
+            }
+        }
     }
 ?>

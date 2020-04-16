@@ -36,7 +36,7 @@
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
 
             if(!$this->CheckPhone($Phone)) {
-                $Password = sha1(strrev(md5($Password)));
+                $Password = AuthHelper::EncryptPassword($Password);
 
                 $this->DB->call_procedure('Registration', [$Token, $Phone, $Password, $Name]);
                 return ACTION_SUCCESS;

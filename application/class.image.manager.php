@@ -5,6 +5,8 @@
      * Класс менеджера клиентов
      */
     class ImageManager {
+        public static string $CacheFolder = UPLOADS_FOLDER . '\\cache';
+        public static string $AvatarFolder = UPLOADS_FOLDER . '\\user\\avatar';
         /**
          * Метод для оптимизации изображения
          * * Принимает изображения в форматах JPEG, PNG, GIF
@@ -32,6 +34,31 @@
             }
             imagewebp($image, $to, 80);
             return true;
+        }
+        /**
+         * Метод для получения расширения файла
+         * @param string $filename Имя файла
+         */
+        public static function GetExtension(string $filename) {
+            return strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        }
+        /**
+         * Метод для получения временного файла
+         * @param string $tmp Временный файл
+         * @param string $extension Расширение
+         */
+        public static function GetTempFile(string $tmp, string $extension) {
+            $date = new \DateTime();
+            $new_tmp = self::$CacheFolder . $date->getTimestamp() . '-' . rand() . "." . $extension;
+            move_uploaded_file($tmp, $new_tmp);
+            return $new_tmp;
+        }
+        /**
+         * Метод для удаления временного файла
+         * @param string $filename Имя файла
+         */
+        public static function DeleteTempFile(string $filename) {
+            unlink($filename);
         }
     }
 ?>

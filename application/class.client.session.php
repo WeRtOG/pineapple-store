@@ -55,8 +55,7 @@
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
 
             if($this->Manager->CheckPhone($Phone)) {
-                $Password = sha1(strrev(md5($Password)));
-                
+                $Password = AuthHelper::EncryptPassword($Password);
                 $result = $this->DB->call_function('isAuthorization', [$Phone, $Password]);
                 
                 if($result != null) {
@@ -74,31 +73,54 @@
             }
         }
         /**
+         * Метод для смены пароля
+         * @param string $Password Новый пароль
+         */
+        public function ChangePassword(string $Password) {
+            if(empty($Password)) return ERROR_FIELD_EMPTY_DATA;
+
+            if($this->IsAuthorized) {
+                $Password = AuthHelper::EncryptPassword($Password);
+                $this->DB->call_procedure('editPassword', [$this->Client->Token, $Password]);
+                return ACTION_SUCCESS;
+            } else {
+                return ERROR_UNAUTHORIZED;
+            }
+        }
+        /**
+         * Метод для смены имени
+         * @param string $Name Новое имя
+         */
+        public function ChangeName(string $Name) {
+            if(empty($Name)) return ERROR_FIELD_EMPTY_DATA;
+
+            if($this->IsAuthorized) {
+                $this->DB->call_procedure('updateClientName', [$this->Client->Token, $Name]);
+                return ACTION_SUCCESS;
+            } else {
+                return ERROR_UNAUTHORIZED;
+            }
+        }
+        /**
          * Метод для загрузки аватара
          * @param array Файл
          */
         public function UploadAvatar(array $file) {
             $type = explode('/', $file['type'])[0];
+
             if($type == 'image') {
-                $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $extension = ImageManager::GetExtension($file['name']);
+
                 if(in_array($extension, ['png', 'jpg', 'jpeg', 'gif'])) {
-                    $date = new \DateTime();
-                    $from = dirname(__DIR__) . '\\uploads\\cache\\' . $date->getTimestamp() . '-' . rand() . "." . $extension;
-                    $to = dirname(__DIR__) . '\\uploads\\user\\avatar\\' . $this->Client->ID . '.webp';
-                    
-                    move_uploaded_file($file['tmp_name'], $from);
-
+                    $from = ImageManager::GetTempFile($file['tmp_name'], $extension);
+                    $to = ImageManager::$AvatarFolder . '/' . $this->Client->ID . '.webp';
                     $result = ImageManager::OptimizeImage($from, $to);
-
-                    unlink($from);
+                    ImageManager::DeleteTempFile($from);
+                    
                     return $result;
-                } else {
-                    return false;
                 }
-            } else {
-                return false;
             }
-
+            return false;
         }
         /**
          * Метод для выхода из аккаунта

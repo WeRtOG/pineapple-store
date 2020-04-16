@@ -31,12 +31,19 @@
          * Метод для безопасного получения GET-переменной
          * @param string $name Имя
          */
-        public function GETSafeField($name) {
+        public function GETSafeField(string $name) {
             if(array_key_exists($name, $_GET)) {
                 return $this->DB->escape(strip_tags($_GET[$name]));
             } else {
                 return '';
             }
+        }
+        /**
+         * Метод для шифрования пароля
+         * @param string $password Нешифрованный пароль
+         */
+        public static function EncryptPassword(string $password) {
+            return sha1(strrev(md5($password)));
         }
     }
 ?>

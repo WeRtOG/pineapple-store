@@ -13,6 +13,8 @@
 	define('ERROR_USER_ALREADY_EXISTS', 22);
 	define('ERROR_INVALID_PWD', 23);
 	define('ERROR_MYSQL', 24);
+	define('ERROR_UNAUTHORIZED', 25);
+	define('UPLOADS_FOLDER', dirname(__DIR__) . '\\uploads');
 	
 
 	/*

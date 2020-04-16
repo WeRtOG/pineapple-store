@@ -29,7 +29,7 @@
 			<?php if(!$session_client->IsAuthorized) { ?>
 			<a href="<?=$this->Root?>/auth" class="auth<?=$controller_name == 'auth' ? ' active' : ''?>">Вход / Регистрация</a>
 			<?php } else { ?>
-			<a href="<?=$this->Root?>/cabinet" class="auth<?=$controller_name == 'cabinet' ? ' active' : ''?>">Привет, <?=$session_client->Client->Name?>!</a>
+			<a href="<?=$this->Root?>/cabinet" class="auth<?=$controller_name == 'cabinet' ? ' active' : ''?>">Привет, <?=explode(' ', $session_client->Client->Name)[0]?>!</a>
 			<?php } ?>
 		</div>
 	</header>
