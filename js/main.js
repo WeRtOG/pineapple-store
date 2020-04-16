@@ -25,11 +25,11 @@ $(function() {
             HideModal($(this));
         }
     });
-    $('.cabinet .actions .changepassword').click(function() {
-        ShowModal($('.modal-wrapper.changepassword'));
-    });
     $('.cabinet .actions .changename').click(function() {
         ShowModal($('.modal-wrapper.changename'));
+    });
+    $('.cabinet .actions .changepassword').click(function() {
+        ShowModal($('.modal-wrapper.changepassword'));
     });
     $('.modal-wrapper .modal .close').click(function() {
         var $target = $(this).parent().parent();
