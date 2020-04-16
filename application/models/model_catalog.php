@@ -1,5 +1,7 @@
 <?php
-
+	/**
+	 * Модель страницы каталога
+	 */
 	class Model_Catalog extends Model
 	{
 		public function GetData()
@@ -136,7 +138,5 @@
 				]
 			];
 		}
-
 	}
-
 ?>

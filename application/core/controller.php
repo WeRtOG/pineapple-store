@@ -1,18 +1,26 @@
 <?php
-
-class Controller {
-	
-	public $Model;
-	public $View;
-	
-	function __construct()
-	{
-		$this->View = new View();
+	/**
+	 * Класс контроллера
+	 */
+	class Controller {
+		
+		public Model $Model;
+		public View $View;
+		
+		/**
+		 * Конструктор контроллера по-умолчанию
+		 */
+		public function __construct()
+		{
+			$this->View = new View();
+		}
+		
+		/**
+		 * Экшн коренной страницы по-умолчанию
+		 */
+		public function action_index()
+		{
+			// To Do	
+		}
 	}
-	
-	// действие (action), вызываемое по умолчанию
-	function action_index()
-	{
-		// todo	
-	}
-}
+?>

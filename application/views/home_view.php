@@ -2,7 +2,7 @@
     <section class="slide-text anix">
         <h1>Всё для вас!</h1>
         <p>В нашем интернет-магазине вы сможете найти обувь на любой вкус и цвет</p>
-        <a href="<?=$root?>/catalog">
+        <a href="<?=$this->Root?>/catalog">
             <p>
                 <span>Перейти к товарам</span>
                 <span class="material-icons">

@@ -1,36 +1,48 @@
 <?php
-
-class View
-{
-	function LoadCSS($path) {
-		echo '<link rel="stylesheet" href="'.$path.'?v='.filemtime($_SERVER['DOCUMENT_ROOT'] . $path).'">' . PHP_EOL . '	';
-	}
-	function LoadJS($path) {
-		echo '<script src="'.$path.'?v='.filemtime($_SERVER['DOCUMENT_ROOT'] . $path).'"></script>' . PHP_EOL;
-	}
-	//public $template_view; // здесь можно указать общий вид по умолчанию.
-	
-	/*
-	$content_file - виды отображающие контент страниц;
-	$template_file - общий для всех страниц шаблон;
-	$data - массив, содержащий элементы контента страницы. Обычно заполняется в модели.
-	*/
-	function Generate($content_view, $page_title, $template_view, $data = null)
+	/**
+	 * Класс представления
+	 */
+	class View
 	{
-		
-		/*
-		if(is_array($data)) {
-			
-			// преобразуем элементы массива в переменные
-			extract($data);
+		/**
+		 * Конструктор класса представления
+		 */
+		public function __construct()
+		{
+			$this->Root = Route::GetRoot();
+			$this->Route = Route::GetRoute();
 		}
-		*/
+		/**
+		 * Метод для загрузки CSS
+		 * @param string $path Относительный путь к файлу
+		 */
+		public function LoadCSS(string $path)
+		{
+			echo '<link rel="stylesheet" href="'.$path.'?v='.filemtime($_SERVER['DOCUMENT_ROOT'] . '/' . $path).'">' . PHP_EOL . '	';
+		}
+		/**
+		 * Метод для загрузки JS
+		 * @param string $path Относительный путь к файлу
+		 */
+		public function LoadJS(string $path)
+		{
+			echo '<script src="'.$path.'?v='.filemtime($_SERVER['DOCUMENT_ROOT'] . '/' . $path).'"></script>' . PHP_EOL;
+		}
 		
-		/*
-		динамически подключаем общий шаблон (вид),
-		внутри которого будет встраиваться вид
-		для отображения контента конкретной страницы.
+		/**
+		 * Метод для генерации представления
+		 * @param string $content_file Представления отображающие контент страниц
+		 * @param string $template_file Общий для всех страниц шаблон
+		 * @param string $data Массив, содержащий элементы контента страницы. Обычно заполняется в модели
 		*/
-		include 'application/views/'.$template_view;
+		public function Generate(string $content_view, string $page_title, string $template_view, ?array $data = null)
+		{
+			/*
+				Динамически подключаем общий шаблон (вид),
+				внутри которого будет встраиваться вид
+				для отображения контента конкретной страницы.
+			*/
+			include 'application/views/'.$template_view;
+		}
 	}
-}
+?>

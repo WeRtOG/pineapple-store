@@ -38,7 +38,7 @@
             <div class="all-items-sidebar">
                 <h2>
                     <span class="text">Фильтр</span>
-                    <img src="<?=$root?>/images/filter.svg"/>
+                    <img src="<?=$this->Root?>/images/filter.svg"/>
                 </h2>
             </div>
             <div class="all-items-content">

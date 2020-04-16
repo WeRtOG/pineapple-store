@@ -1,4 +1,8 @@
-﻿html, body {
+﻿html {
+    --ui-gradient: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
+    --error-text: rgb(255, 122, 122);
+}
+html, body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
@@ -7,7 +11,7 @@
 html {
     height: 100%;
     display: flex;
-    background: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
+    background: var(--ui-gradient);
 } 
 body {
     background-size: cover;
@@ -24,7 +28,7 @@ header {
     box-sizing: border-box;
     display: flex;
     padding: 10px;
-    background: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
+    background: var(--ui-gradient)
 }
 a {
     color: inherit;
@@ -315,6 +319,118 @@ article.item-card button:hover {
 .catalog-wrapper .catalog .all-items-content {
     display: flex;
     flex-wrap: wrap;
+}
+.auth-form-wrapper {
+    padding-top: 80px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth-form-wrapper .auth-form {
+    width: 400px;
+    height: 520px;
+    background: white;
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 5px;
+}
+.auth-form-wrapper .auth-form h1 {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0px;
+    color: black;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.auth-form-wrapper .auth-form .error {
+    color: var(--error-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+.auth-form-wrapper .auth-form input {
+    margin: 20px auto;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 5px #0000001A;
+    border-radius: 7px;
+    opacity: 1;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+}
+.auth-form-wrapper .auth-form input[type=submit] {
+    background: var(--ui-gradient);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.auth-form-wrapper .auth-form input[type=submit]:hover {
+    opacity: .9;
+}
+.auth-form-wrapper .auth-form .hint {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    color: black;
+    text-align: left;
+}
+.auth-form-wrapper .auth-form .hint h3 {
+    font-weight: 400;
+    margin: 0;
+}
+.auth-form-wrapper .auth-form .hint a {
+    font-weight: 300;
+}
+.cabinet {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-top: 80px;
+    box-sizing: border-box;
+}
+.cabinet .sidebar {
+    width: 300px;
+    text-align: center;
+}
+.cabinet .sidebar .user-info {
+    text-align: center;
+    padding-top: 40px;
+}
+.cabinet .sidebar .user-info .avatar {
+    width: 100px;
+    height: 100px;
+    background: #222;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.cabinet .sidebar .user-info input[type=file] {
+    display: none;
+}
+.cabinet .sidebar .user-info h2 {
+    font-size: 32px;
+    margin-top: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+.cabinet .sidebar .user-info .avatar.default {
+    background-size: 32px;
 }
 /* width */
 ::-webkit-scrollbar {
