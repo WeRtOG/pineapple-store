@@ -20,8 +20,8 @@ steps:
     sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
     sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
     php -version
-  displayName: 'Use PHP version $(phpVersion)'
+  displayName: 'Использование PHP версии $(phpVersion)'
 - script : |
     ls
-    php -r 'echo __DIR__;'
-  displayName: 'Тестовый шаг #1'
+    php application/onbuild.php
+  displayName: 'Действие OnBuild в проекте'
