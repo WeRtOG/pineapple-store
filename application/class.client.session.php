@@ -50,6 +50,7 @@
          * Метод для авторизации клиента
          * @param string $Phone Телефон
          * @param string $Password Пароль
+         * @return bool Результат операции
          */
         public function Authorize(string $Phone, string $Password) {
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
@@ -75,6 +76,7 @@
         /**
          * Метод для смены пароля
          * @param string $Password Новый пароль
+         * @return bool Результат операции
          */
         public function ChangePassword(string $Password) {
             if(empty($Password)) return ERROR_FIELD_EMPTY_DATA;
@@ -90,6 +92,7 @@
         /**
          * Метод для смены имени
          * @param string $Name Новое имя
+         * @return bool Результат операции
          */
         public function ChangeName(string $Name) {
             if(empty($Name)) return ERROR_FIELD_EMPTY_DATA;
@@ -104,6 +107,7 @@
         /**
          * Метод для загрузки аватара
          * @param array Файл
+         * @return bool Результат операции
          */
         public function UploadAvatar(array $file) {
             $type = explode('/', $file['type'])[0];

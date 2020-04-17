@@ -38,14 +38,16 @@
         /**
          * Метод для получения расширения файла
          * @param string $filename Имя файла
+         * @return string Расширение
          */
         public static function GetExtension(string $filename) {
             return strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         }
         /**
          * Метод для получения временного файла
-         * @param string $tmp Временный файл
+         * @param string $tmp Временный файл (в системе)
          * @param string $extension Расширение
+         * @return string Временный файл (в проекте)
          */
         public static function GetTempFile(string $tmp, string $extension) {
             $date = new \DateTime();

@@ -32,6 +32,10 @@
 			<a href="<?=$this->Root?>/cabinet" class="auth<?=$controller_name == 'cabinet' ? ' active' : ''?>">Привет, <?=explode(' ', $session_client->Client->Name)[0]?>!</a>
 			<?php } ?>
 		</div>
+		<a class="cart<?=$controller_name == 'cart' ? ' active' : ''?>" href="<?=$this->Root?>/cart">
+			<img src="<?=$this->Root?>/images/shopping_cart.svg"/>
+			<div class="count hidden">0</div>
+		</a>
 	</header>
 	<section class="main-content">
 		<?php include 'application/views/'.$content_view; ?>
@@ -41,6 +45,8 @@
 	<script src="/cdn/anix.js?v=6"></script>
 	<?php
 		$this -> LoadJS($this->Root . '/js/class.api.js');
+		$this -> LoadJS($this->Root . '/js/methods.js');
+		$this -> LoadJS($this->Root . '/js/events.js');
 		$this -> LoadJS($this->Root . '/js/main.js');
 	?>
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>

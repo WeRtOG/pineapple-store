@@ -9,12 +9,13 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $auth_helper;
+            global $session_client, $clientMgr, $auth_helper, $cart;
 
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
             $this->AuthHelper = $auth_helper;
             $this->Root = Route::GetRoot();
+            $this->Cart = $cart;
         }
         /**
          * Экшн коренной страницы
@@ -53,6 +54,18 @@
             } else {
                 $this->action_403();
             }
+        }
+        /**
+         * Экшн получения кол-ва элементов в корзине
+         */
+        public function action_GetCartItemsCount()
+        {
+            $count = $this->Cart->GetItemsCount();
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'count' => $count
+            ]);
         }
         /**
          * Экшн 400 ошибки

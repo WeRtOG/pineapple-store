@@ -34,12 +34,14 @@
 	require_once 'class.client.php';
 	require_once 'class.api.php';
 	require_once 'class.db.php';
+	require_once 'class.cart.php';
 
 	$db = new DatabaseManager\Database('localhost', 'admin', '4TE5CF67C5', 'pineapple_shoes'); // Подключаемся к БД
 	
 	$clientMgr = new ClientManager\ClientManager($db); // Инициализируем менеджер клиентов
 	$session_client = new ClientManager\SessionClient('pineapple-user', $clientMgr, $db); // Инициализируем клиента
 	$auth_helper = new ClientManager\AuthHelper($db); // Инициализируем хелпер для авторизации
+	$cart = new ClientCart\Cart($session_client->Client, $db); // Инициализируем корзину
 
 	Route::Start(); // Запускаем маршрутизатор
 ?>

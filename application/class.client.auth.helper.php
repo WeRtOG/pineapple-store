@@ -19,6 +19,7 @@
         /**
          * Метод для безопасного получения POST-переменной
          * @param string $name Имя
+         * @return string Фильтрованная строка
          */
         public function POSTSafeField(string $name) {
             if(array_key_exists($name, $_POST)) {
@@ -30,6 +31,7 @@
         /**
          * Метод для безопасного получения GET-переменной
          * @param string $name Имя
+         * @return string Фильтрованная строка
          */
         public function GETSafeField(string $name) {
             if(array_key_exists($name, $_GET)) {
@@ -41,6 +43,7 @@
         /**
          * Метод для шифрования пароля
          * @param string $password Нешифрованный пароль
+         * @return string Шифрованный пароль
          */
         public static function EncryptPassword(string $password) {
             return sha1(strrev(md5($password)));

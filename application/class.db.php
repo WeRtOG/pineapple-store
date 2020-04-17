@@ -20,6 +20,7 @@
         /**
          * Метод для выполнения SQL-запроса
          * @param string $query Запрос
+         * @return array Результат
          */
         public function fetch_query(string $query) {
             $q = $this->DB->query($query);
@@ -53,6 +54,7 @@
          * Метод для вызова хранимой процедуры
          * @param string $name Имя процедуры
          * @param array $parameters Массив значений параметров
+         * @return array Результат
          */
         public function call_procedure(string $name, array $parameters = []) {
             $parameters_string = count($parameters) > 0 ? "'" . implode("', '", $parameters) . "'" : "";
@@ -62,6 +64,7 @@
          * Метод для вызова хранимой функции
          * @param string $name Имя процедуры
          * @param array $parameters Массив значений параметров
+         * @return array Результат
          */
         public function call_function(string $name, array $parameters = []) {
             $parameters_string = count($parameters) > 0 ? "'" . implode("', '", $parameters) . "'" : "";
@@ -70,6 +73,7 @@
         /**
          * Метод для получения безопасной строки (защита от SQL-инъекций)
          * @param $string Строка
+         * @return string Безопасная строка
          */
         public function escape(string $string) {
             return $this->DB->real_escape_string($string);

@@ -19,6 +19,7 @@
         /**
          * Метод для получения клиента по токену
          * @param string $Token Токен
+         * @return Client Клиент
          */
         public function GetClient(string $Token) {
             $data = $this->DB->call_procedure('getClient', [$Token]);
@@ -31,6 +32,7 @@
          * @param string $Name Имя
          * @param string $Password Пароль
          * @param string $Token Токен
+         * @return int Результат операции
          */
         public function Register(string $Phone, string $Name, string $Password, string $Token) {
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
@@ -47,6 +49,7 @@
         /**
          * Метод для проверки наличия номера
          * @param string $Phone Номер телефона
+         * @return bool Результат проверки
          */
         public function CheckPhone(string $Phone) {
             return $this->DB->call_function('checkPhone', [$Phone]) == 'true';
@@ -54,12 +57,14 @@
         /**
          * Метод для проверки о существовании клиента
          * @param string $Token Токен
+         * @return bool Результат проверки
          */
         public function IsClientExists(?string $Token) {
             return $this->DB->call_function('isClientExists', [$Token]) == 'true';
         }
         /**
          * Метод для генерации токена
+         * @return string Токен
          */
         public function GenerateToken() {
             return $this->DB->call_function('createToken');
