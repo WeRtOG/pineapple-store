@@ -20,5 +20,7 @@ steps:
     sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
     sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
     php -version
-    php -r 'echo "Ыыы, эта хрень работает";'
   displayName: 'Use PHP version $(phpVersion)'
+- script : |
+    php -r 'echo "Ыыы, эта хрень работает, что не может не радовать.\n\nМожно будет сделать тут тесты или что-то типо того";'
+  displayName: 'Тестовый шаг'
