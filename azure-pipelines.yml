@@ -22,6 +22,5 @@ steps:
     php -version
   displayName: 'Использование PHP версии $(phpVersion)'
 - script : |
-    ls
     php application/onbuild.php
   displayName: 'Действие OnBuild в проекте'
