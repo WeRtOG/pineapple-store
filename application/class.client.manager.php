@@ -21,7 +21,7 @@
          * @param string $Token Токен
          * @return Client Клиент
          */
-        public function GetClient(string $Token) {
+        public function GetClient(string $Token) : Client {
             $data = $this->DB->call_procedure('getClient', [$Token]);
             $client = new Client($data);
             return $client;
@@ -34,7 +34,7 @@
          * @param string $Token Токен
          * @return int Результат операции
          */
-        public function Register(string $Phone, string $Name, string $Password, string $Token) {
+        public function Register(string $Phone, string $Name, string $Password, string $Token) : int {
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
 
             if(!$this->CheckPhone($Phone)) {
@@ -51,7 +51,7 @@
          * @param string $Phone Номер телефона
          * @return bool Результат проверки
          */
-        public function CheckPhone(string $Phone) {
+        public function CheckPhone(string $Phone) : bool {
             return $this->DB->call_function('checkPhone', [$Phone]) == 'true';
         }
         /**
@@ -59,14 +59,14 @@
          * @param string $Token Токен
          * @return bool Результат проверки
          */
-        public function IsClientExists(?string $Token) {
+        public function IsClientExists(?string $Token) : bool {
             return $this->DB->call_function('isClientExists', [$Token]) == 'true';
         }
         /**
          * Метод для генерации токена
          * @return string Токен
          */
-        public function GenerateToken() {
+        public function GenerateToken() : string {
             return $this->DB->call_function('createToken');
         }
     }

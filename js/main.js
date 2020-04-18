@@ -34,4 +34,12 @@ $(function() {
         arrows: false,
         swipeToSlide: true,
     });
+    if($('.picZoomer').hasClass('picZoomer')) {
+        $('.picZoomer').picZoomer({
+            picWidth: 500,
+            picHeight: 500,
+            scale: 2.5,
+            zoomerPosition: {top: '0', left: '0px'}
+        });
+    }
 });

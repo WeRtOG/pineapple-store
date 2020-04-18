@@ -50,9 +50,9 @@
          * Метод для авторизации клиента
          * @param string $Phone Телефон
          * @param string $Password Пароль
-         * @return bool Результат операции
+         * @return int Результат операции
          */
-        public function Authorize(string $Phone, string $Password) {
+        public function Authorize(string $Phone, string $Password) : int {
             foreach(func_get_args() as $argument) if(empty($argument)) return ERROR_FIELD_EMPTY_DATA;
 
             if($this->Manager->CheckPhone($Phone)) {
@@ -76,9 +76,9 @@
         /**
          * Метод для смены пароля
          * @param string $Password Новый пароль
-         * @return bool Результат операции
+         * @return int Результат операции
          */
-        public function ChangePassword(string $Password) {
+        public function ChangePassword(string $Password) : int {
             if(empty($Password)) return ERROR_FIELD_EMPTY_DATA;
 
             if($this->IsAuthorized) {
@@ -92,9 +92,9 @@
         /**
          * Метод для смены имени
          * @param string $Name Новое имя
-         * @return bool Результат операции
+         * @return int Результат операции
          */
-        public function ChangeName(string $Name) {
+        public function ChangeName(string $Name) : int {
             if(empty($Name)) return ERROR_FIELD_EMPTY_DATA;
 
             if($this->IsAuthorized) {
@@ -109,17 +109,17 @@
          * @param array Файл
          * @return bool Результат операции
          */
-        public function UploadAvatar(array $file) {
+        public function UploadAvatar(array $file) : bool {
             $type = explode('/', $file['type'])[0];
 
             if($type == 'image') {
-                $extension = ImageManager::GetExtension($file['name']);
+                $extension = \File\IO::GetExtension($file['name']);
 
                 if(in_array($extension, ['png', 'jpg', 'jpeg', 'gif'])) {
-                    $from = ImageManager::GetTempFile($file['tmp_name'], $extension);
+                    $from = \File\IO::GetTempFile($file['tmp_name'], $extension);
                     $to = ImageManager::$AvatarFolder . '/' . $this->Client->ID . '.webp';
                     $result = ImageManager::OptimizeImage($from, $to);
-                    ImageManager::DeleteTempFile($from);
+                    \File\IO::DeleteTempFile($from);
                     
                     return $result;
                 }

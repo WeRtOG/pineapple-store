@@ -30,18 +30,22 @@
 		> Backup
 		> и др.
 	*/
+	require_once 'class.file.io.php';
 	require_once 'class.image.php';
 	require_once 'class.client.php';
 	require_once 'class.api.php';
 	require_once 'class.db.php';
+	require_once 'class.product.php';
 	require_once 'class.cart.php';
+	require_once 'class.order.php';
 
 	$db = new DatabaseManager\Database('localhost', 'admin', '4TE5CF67C5', 'pineapple_shoes'); // Подключаемся к БД
 	
 	$clientMgr = new ClientManager\ClientManager($db); // Инициализируем менеджер клиентов
 	$session_client = new ClientManager\SessionClient('pineapple-user', $clientMgr, $db); // Инициализируем клиента
 	$auth_helper = new ClientManager\AuthHelper($db); // Инициализируем хелпер для авторизации
+	$productMgr = new ProductManager\ProductManager($db); // Инициализируем менеджер товаров
 	$cart = new ClientCart\Cart($session_client->Client, $db); // Инициализируем корзину
-
+	
 	Route::Start(); // Запускаем маршрутизатор
 ?>

@@ -39,4 +39,9 @@ $(function() {
             }
         }
     });
+    $('.piclist .pic').on('click',function(event){
+        $('.piclist .pic').removeClass('active');
+        $(this).addClass('active');
+        $('.picZoomer .rt').css('background-image', $(this).css('background-image'));
+    });
 });

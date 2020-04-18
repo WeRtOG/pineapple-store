@@ -1,6 +1,8 @@
 <?php
     namespace ClientCart;
 
+    require_once 'class.cart.item.php';
+
     use \DatabaseManager\Database as Database;
     use \ClientManager\Client as Client;
 
@@ -8,8 +10,9 @@
      * Класс корзины пользователя
      */
     class Cart {
-        public Client $Client;
-        public Database $DB;
+        protected Client $Client;
+        protected Database $DB;
+        public array $Items = [];
 
         /**
          * Конструктор класса корзины пользователя
@@ -24,8 +27,8 @@
          * Метод для получения кол-ва элементов в корзине
          * @return int Кол-во
          */
-        public function GetItemsCount() {
-            return 0;
+        public function GetItemsCount() : int {
+            return count($this->Items);
         }
     }
 ?>

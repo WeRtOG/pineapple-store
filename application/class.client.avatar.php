@@ -18,13 +18,10 @@
             $Path = '/uploads/user/avatar/' . $client_id . '.webp';
 
             $this->Image = new Image($Path);
-
-            if(file_exists($this->Image->FilePath)) {
-                $this->IsDefault = false;
-            } else {
-                $Path = '/images/client.svg';
-                $this->Image = new Image($Path);
-            }
+            $exists = file_exists($this->Image->FilePath);
+            $this->Image = $exists ? $this->Image : new Image($Path);
+            $this->IsDefault = !$exists;
+            
             $this->Path = $Path;
         }
     }

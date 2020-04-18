@@ -1,6 +1,7 @@
 ﻿html {
     --ui-gradient: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
     --error-text: rgb(255, 122, 122);
+    position: relative;
 }
 html, body {
     margin: 0;
@@ -15,8 +16,13 @@ html {
 } 
 body {
     background-size: cover;
-    min-height: 100%;
+    height: 100%;
     flex: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 header {
     width: 100%;
@@ -97,7 +103,7 @@ header img {
     height: 100%;
 }
 .main-content {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     max-width: 100%;
 }
@@ -110,6 +116,9 @@ header img {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .slide-wrapper .sneaker {
     position: absolute;
@@ -199,17 +208,15 @@ header img {
 }
 .catalog-wrapper {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     position: relative;
 }
 .catalog-wrapper .catalog {
     box-sizing: border-box;
     text-align: center;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    min-height: 100%;
+    margin-top: 80px;
+    max-width: 100%;
 }
 .catalog-wrapper .catalog h1 {
     font-family: 'Roboto', sans-serif;
@@ -220,7 +227,6 @@ header img {
 }
 .catalog-wrapper .catalog h1:first-of-type {
     padding-top: 70px;
-    margin-top: 80px;
 }
 .catalog-wrapper .catalog .carousel {
     height: 300px;
@@ -258,7 +264,7 @@ header img {
 }
 article.item-card {
     width: 280px;
-    height: 400px;
+    min-height: 430px;
     background: white;
     border-radius: 5px;
     margin: 10px;
@@ -330,7 +336,11 @@ article.item-card button:hover {
     display: flex;
 }
 .catalog-wrapper .catalog .all-items .all-items-sidebar {
-    width: 600px;
+    min-width: 300px;
+}
+.catalog-wrapper .catalog .all-items .all-items-sidebar .filters {
+    position: sticky; 
+    top: 100px;
 }
 .catalog-wrapper .catalog .all-items .all-items-sidebar h2 {
     display: flex;
@@ -568,6 +578,158 @@ form input[type=submit]:hover {
 .modal-wrapper .modal .close:hover {
     background: #ddd;
 }
+.page-select {
+    padding: 50px;
+    box-sizing: border-box;
+}
+.page-select .page {
+    padding: 10px;
+    border: none;
+    background: rgba(255,255,255,.05);
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #ddd;
+    transition: all 0.3s ease;
+    outline: none;
+}
+.page-select .page:hover {
+    background: rgba(255,255,255,.1);
+}
+.page-select .page.sw {
+    opacity: .5;
+}
+.page-select .page.current {
+    font-weight: 500;
+    color: white;
+}
+.product-info {
+    box-sizing: border-box;
+    min-height: 100%;
+    width: 100%;
+    padding-top: 80px;
+    background: white;
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: black;
+}
+.product-info .info {
+    padding: 20px;
+    padding-left: 50px;
+    width: 100%;
+}
+.product-info .info h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    margin: 0;
+}
+.product-info .info h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 32px;
+    margin: 0;
+}
+.product-info .info h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    margin: 0;
+    margin-top: 10px;
+}
+.product-info .info .color-select, .product-info .info .size-select {
+    display: flex;
+    align-items: center;
+}
+.product-info .info .color-select input, .product-info .info .size-select input {
+    display: none;
+}
+.product-info .info .color-select label {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    margin: 5px;
+    border: 2px solid rgb(241, 241, 241);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.product-info .info .color-select input:checked + label {
+    transform: scale(1.2);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
+    border: 2px solid white;
+}
+.product-info .info .size-select {
+    overflow: hidden;
+    border-radius: 5px;
+    width: fit-content;
+}
+.product-info .info .size-select label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.product-info .info .size-select input:checked + label {
+    background: #ddd;
+}
+.product-info .add-to-cart {
+    min-width: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.product-info .add-to-cart button {
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    height: 50px;
+    background: black;
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+.product-info .add-to-cart button:hover {
+    background: #222;
+}
+.product-info .add-to-cart button p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-info .add-to-cart button p span.material-icons {
+    margin-right: 5px;
+}
+.product-info .add-to-cart h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 54px;
+    letter-spacing: -1.18px;
+    margin: 0;
+}
+.product-info h1.not-found {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -586,6 +748,93 @@ form input[type=submit]:hover {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(51, 51, 59);
+}
+.zoom-contatiner {
+    display: flex;
+}
+.picZoomer-zoom-wp {
+    user-select: none;
+    z-index: 1;
+}
+.picZoomer .rt {
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.picZoomer .rt:hover {
+    opacity: 0 !important;
+}
+.picZoomer-cursor {
+    display: none !important;
+}
+.piclist .pic {
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: scale(0.7);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: .9;
+    background-size: cover;
+    background-position: center;
+}
+.piclist .pic:hover {
+    opacity: 1;
+    transform: scale(0.8);
+}
+.piclist .pic.active {
+    opacity: 1;
+    transform: scale(0.92);
+}
+.piclist {
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+/* width */
+.piclist::-webkit-scrollbar {
+    width: 0px;
+}
+
+/* Track */
+.piclist::-webkit-scrollbar-track {
+    background: #333;
+}
+
+/* Handle */
+.piclist::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+/* Handle on hover */
+.piclist::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+.picZoomer {
+    overflow: hidden;
+    background: white;
+    height: 320px;
+    overflow: hidden;
+}
+.picZoomer img {
+    width: auto !important;
+}
+footer {
+    text-align: center;
+    padding: 50px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,.05);
+}
+footer a {
+    margin: 5px;
+    opacity: .3;
+}
+footer p {
+    color: rgba(255,255,255,.3);
 }
 @media (min-device-width: 2000px){
     html{

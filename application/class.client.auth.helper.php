@@ -21,7 +21,7 @@
          * @param string $name Имя
          * @return string Фильтрованная строка
          */
-        public function POSTSafeField(string $name) {
+        public function POSTSafeField(string $name) : string {
             if(array_key_exists($name, $_POST)) {
                 return $this->DB->escape(strip_tags($_POST[$name]));
             } else {
@@ -33,7 +33,7 @@
          * @param string $name Имя
          * @return string Фильтрованная строка
          */
-        public function GETSafeField(string $name) {
+        public function GETSafeField(string $name) : string {
             if(array_key_exists($name, $_GET)) {
                 return $this->DB->escape(strip_tags($_GET[$name]));
             } else {
@@ -45,7 +45,7 @@
          * @param string $password Нешифрованный пароль
          * @return string Шифрованный пароль
          */
-        public static function EncryptPassword(string $password) {
+        public static function EncryptPassword(string $password) : string {
             return sha1(strrev(md5($password)));
         }
     }
