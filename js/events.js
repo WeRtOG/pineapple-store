@@ -1,5 +1,6 @@
 $(function() {
-    $('a[href]').click(function() {
+    $('a[href]').click(function(e) {
+        if($(this).find('button').hasClass('addtocart')) return;
         $('a[href]').removeClass('active');
         $(this).addClass('active');
         $('.anix').css('transition', 'all 0.3s ease');
@@ -43,5 +44,27 @@ $(function() {
         $('.piclist .pic').removeClass('active');
         $(this).addClass('active');
         $('.picZoomer .rt').css('background-image', $(this).css('background-image'));
+    });
+    $('button.addtocart').click(async function(e) {
+        e.preventDefault();
+        
+        var id = $(this).attr('data-id');
+
+        if(!$(this).hasClass('already')) {
+            const response = await api.AddItemToCart(id);
+            if(response.ok) {
+                $(this).addClass('already');
+                $(this).find('.text').text('Убрать из корзины');
+                $(this).find('.icon').text('remove_shopping_cart');
+            }
+        } else {
+            const response = await api.RemoveItemFromCart(id);
+            if(response.ok) {
+                $(this).removeClass('already');
+                $(this).find('.text').text('В корзину');
+                $(this).find('.icon').text('add_shopping_cart');
+            }
+        }
+
     });
 });

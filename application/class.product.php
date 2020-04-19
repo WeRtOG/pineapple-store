@@ -26,6 +26,7 @@
         public float $Price;
         public int $CountSale;
         public ProductImages $Images;
+        public bool $InCart = false;
 
         /**
          * Конструктор объекта товара

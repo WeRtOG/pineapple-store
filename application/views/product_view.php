@@ -34,12 +34,12 @@
     </div>
     <div class="add-to-cart">
         <h1><?=number_format($data['Product']->Price, 0, ',', ' ')?> ₴</h1>
-        <button>
+        <button data-id="<?=$data['Product']->ID?>" class="addtocart<?=$data['Product']->InCart ? ' already' : ''?>">
             <p>
-                <span class="material-icons">
-                    add_shopping_cart
+                <span class="icon material-icons">
+                    <?=$data['Product']->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
                 </span>
-                <span>В корзину</span>
+                <span class="text"><?=$data['Product']->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
             </p>
         </button>
     </div>

@@ -40,7 +40,12 @@
          */
         public function GetSeason(int $ID) : ?Season {
             $result = $this->DB->call_procedure('getSeason', [$ID]);
-            return $result != null ? new Season($result) : null;
+            return $result != null ? new Season([
+                'ID' => $result['ID'],
+                'Name' => $result['Name'],
+                'DateFrom' => new \DateTime($result['DateFrom']),
+                'DateTo' => new \DateTime($result['DateTo'])
+            ]) : null;
         }
         /**
          * Метод для получения размеров товара по его по ID
@@ -90,9 +95,18 @@
             return new Product([
                 'ID' => $array['ID'],
                 'Name' => $array['Name'],
-                'Category' => $this->GetCategory($array['IDCategory']),
-                'Brand' => $this->GetBrand($array['IDBrand']),
-                'Season' => $this->GetSeason($array['SeasonID']),
+                'Category' => new Category([
+                    'ID' => $array['IDCategory'],
+                    'Name' => $array['Category']
+                ]),
+                'Brand' => new Brand([
+                    'ID' => $array['IDBrand'],
+                    'Name' => $array['Brand']
+                ]),
+                'Season' => new Season([
+                    'ID' => $array['SeasonID'],
+                    'Name' => $array['Season']
+                ]),
                 'Colors' => $this->GetProductColors($array['ID']),
                 'Sizes' => $this->GetProductSizes($array['ID']),
                 'Year' => $array['Year'],
@@ -110,6 +124,16 @@
             $result = $this->DB->call_procedure('topSale');
             foreach($result as $item) $top[] = $this->GetProductFromArray($item);
             return $top;
+        }
+        /**
+         * Метод для получения сезонных товаров
+         * @return array Массив товаров
+         */
+        public function GetSeasonalOffer() : array {
+            $so = [];
+            $result = $this->DB->call_procedure('getSeasonNow');
+            foreach($result as $item) $so[] = $this->GetProductFromArray($item);
+            return $so;
         }
         /**
          * Метод для получения списка товаров

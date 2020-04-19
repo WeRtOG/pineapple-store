@@ -25,10 +25,9 @@ $(function() {
         swipeToSlide: true,
     });
     $('.catalog .seasonal-offer').slick({
-        centerMode: true,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        infinite: false,
         variableWidth: true,
         variableHeight: true,
         arrows: false,

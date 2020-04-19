@@ -832,9 +832,16 @@ footer {
 footer a {
     margin: 5px;
     opacity: .3;
+    transition: all 0.3s ease;
+}
+footer a:hover {
+    opacity: .5;
 }
 footer p {
     color: rgba(255,255,255,.3);
+}
+button.addtocart.already {
+    background: var(--error-text) !important;
 }
 @media (min-device-width: 2000px){
     html{

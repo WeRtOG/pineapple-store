@@ -45,7 +45,7 @@
 	$session_client = new ClientManager\SessionClient('pineapple-user', $clientMgr, $db); // Инициализируем клиента
 	$auth_helper = new ClientManager\AuthHelper($db); // Инициализируем хелпер для авторизации
 	$productMgr = new ProductManager\ProductManager($db); // Инициализируем менеджер товаров
-	$cart = new ClientCart\Cart($session_client->Client, $db); // Инициализируем корзину
+	$cart = new ClientCart\Cart($session_client->Client, $db, $productMgr); // Инициализируем корзину
 	
 	Route::Start(); // Запускаем маршрутизатор
 ?>

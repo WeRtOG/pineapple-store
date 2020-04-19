@@ -42,19 +42,23 @@
             while($this->DB->next_result()) $this->DB->store_result();
             $q = $this->DB->query($query);
             if($q) {
-                if($q->num_rows > 0) {
-                    $d = $q->fetch_assoc();
-
-                    if($q->num_rows == 1 && $returnArray == false) {
-                        return $d;
-                    } else if($q->num_rows >= 1) {
-                        $result = [];
-                        do {
-                            $result[] = $d;
+                if(\array_key_exists('num_rows', (array)$q)) {
+                    if($q->num_rows > 0) {
+                        $d = $q->fetch_assoc();
+    
+                        if($q->num_rows == 1 && $returnArray == false) {
+                            return $d;
+                        } else if($q->num_rows >= 1) {
+                            $result = [];
+                            do {
+                                $result[] = $d;
+                            }
+                            while($d = $q->fetch_assoc());
+                            
+                            return $result;
                         }
-                        while($d = $q->fetch_assoc());
-                        
-                        return $result;
+                    } else {
+                        return null;
                     }
                 } else {
                     return null;

@@ -56,6 +56,62 @@
             }
         }
         /**
+         * Экшн добавления элемента в корзину
+         */
+        public function action_AddItemToCart()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $this->action_400();
+                    break;
+                case 'POST':
+                    $id = $this->AuthHelper->POSTSafeField('id');
+                    if(!empty($id)) {
+                        $result = $this->Cart->AddItem($id);
+                        if($result) {
+                            API::Answer([
+                                'ok' => true,
+                                'code' => 200
+                            ]);
+                        } else {
+                            $this->action_400();
+                        }
+                    } else {
+                        $this->action_400();
+                    }
+                    
+                    break;
+            }
+        }
+        /**
+         * Экшн удаления элемента из корзины
+         */
+        public function action_RemoveItemFromCart()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $this->action_400();
+                    break;
+                case 'POST':
+                    $id = $this->AuthHelper->POSTSafeField('id');
+                    if(!empty($id)) {
+                        $result = $this->Cart->RemoveItem($id);
+                        if($result) {
+                            API::Answer([
+                                'ok' => true,
+                                'code' => 200
+                            ]);
+                        } else {
+                            $this->action_400();
+                        }
+                    } else {
+                        $this->action_400();
+                    }
+                    
+                    break;
+            }
+        }
+        /**
          * Экшн получения кол-ва элементов в корзине
          */
         public function action_GetCartItemsCount()

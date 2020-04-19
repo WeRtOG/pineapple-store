@@ -7,6 +7,8 @@
     class Season {
         public int $ID;
         public string $Name;
+        public \DateTime $DateFrom;
+        public \DateTime $DateTo;
 
         /**
          * Конструктор объекта товара

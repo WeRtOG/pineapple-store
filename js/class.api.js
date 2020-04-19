@@ -26,5 +26,25 @@ class API {
      */
     async GetCartItemsCount() {
         return this.MakeRequest(http_root + '/api/GetCartItemsCount');
-    } 
+    }
+    /**
+     * Метод для добавления элемента в корзину
+     * @param {int} itemID 
+     */
+    async AddItemToCart(itemID) {
+        let formData = new FormData();
+        formData.append('id', itemID);
+        const response = await fetch(http_root + '/api/AddItemToCart', {method: "POST", body: formData});
+        return await response.json();
+    }
+    /**
+     * Метод для удаления элемента из корзины
+     * @param {int} itemID 
+     */
+    async RemoveItemFromCart(itemID) {
+        let formData = new FormData();
+        formData.append('id', itemID);
+        const response = await fetch(http_root + '/api/RemoveItemFromCart', {method: "POST", body: formData});
+        return await response.json();
+    }
 }

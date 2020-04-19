@@ -12,28 +12,30 @@
         <h1 class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Сезонное предложение</h1>
         <div class="seasonal-offer anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">
             <?php foreach($data['SeasonalOfferItems'] as $item) { ?>
-            <article data-id="<?=$item['ID']?>" class="item-card">
-                <img src="<?=$folder_images . '/' . $item['Image']?>"/>
-                <h2><?=$item['Title']?></h2>
-                <h4><?=$item['WomanShoes'] ? 'Женская обувь' : 'Мужская обувь'?></h4>
-                <h4>
-                    <span>
-                        Подробнее
-                    </span>
-                    <span class="material-icons">
-                        keyboard_arrow_right
-                    </span>
-                </h4>
-                <h3><?=number_format($item['Price'], 0, ',', ' ')?> ₴</h3>
-                <button>
-                    <p>
-                        <span class="material-icons">
-                            add_shopping_cart
+            <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
+                <article class="item-card">
+                    <img src="<?=$item->Images->ImagesList[0]->Path?>"/>
+                    <h2><?=$item->Title?></h2>
+                    <h4><?=$item->Category->Name?></h4>
+                    <h4>
+                        <span>
+                            Подробнее
                         </span>
-                        <span>В корзину</span>
-                    </p>
-                </button>
-            </article>
+                        <span class="material-icons">
+                            keyboard_arrow_right
+                        </span>
+                    </h4>
+                    <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
+                    <button data-id="<?=$item->ID?>" class="addtocart<?=$item->InCart ? ' already' : ''?>">
+                        <p>
+                            <span class="icon material-icons">
+                                <?=$item->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
+                            </span>
+                            <span class="text"><?=$item->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
+                        </p>
+                    </button>
+                </article>
+            </a>
             <?php } ?>
         </div>
         <h1 class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Все товары</h1>
@@ -55,7 +57,7 @@
             <div class="all-items-content">
                 <?php foreach($data['AllItems'] as $item) { ?>
                 <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
-                    <article data-id="<?=$item->ID?>" class="item-card">
+                    <article class="item-card">
                         <img src="<?=$item->Images->ImagesList[0]->Path?>"/>
                         <h2><?=$item->Title?></h2>
                         <h4><?=$item->Category->Name?></h4>
@@ -68,12 +70,12 @@
                             </span>
                         </h4>
                         <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
-                        <button>
+                        <button data-id="<?=$item->ID?>" class="addtocart<?=$item->InCart ? ' already' : ''?>">
                             <p>
-                                <span class="material-icons">
-                                    add_shopping_cart
+                                <span class="icon material-icons">
+                                    <?=$item->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
                                 </span>
-                                <span>В корзину</span>
+                                <span class="text"><?=$item->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
                             </p>
                         </button>
                     </article>
