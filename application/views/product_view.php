@@ -17,14 +17,14 @@
         <h3>Выберите размер:</h3>
         <div class="size-select">
             <?php foreach($data['Product']->Sizes as $i => $size) { ?>
-            <input type="radio" name="SizeSelect" id="SizeSelect-<?=$i?>"<?=$i == 0 ? ' checked' : ''?>>
+            <input type="radio" value="<?=$size->ID?>" name="SizeSelect" id="SizeSelect-<?=$i?>"<?=$i == 0 ? ' checked' : ''?>>
             <label for="SizeSelect-<?=$i?>"><?=$size->Size?></label>
             <?php } ?>
         </div>
         <h3>Выберите цвет:</h3>
         <div class="color-select">
             <?php foreach($data['Product']->Colors as $i => $color) { ?>
-            <input type="radio" name="ColorSelect" id="ColorSelect-<?=$i?>"<?=$i == 0 ? ' checked' : ''?>>
+            <input type="radio" value="<?=$color->ID?>" name="ColorSelect" id="ColorSelect-<?=$i?>"<?=$i == 0 ? ' checked' : ''?>>
             <label for="ColorSelect-<?=$i?>" style="background-color: #<?=$color->HEX?>" title="<?=$color->Name?>"></label>
             <?php } ?>
         </div>

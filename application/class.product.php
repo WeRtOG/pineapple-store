@@ -39,5 +39,27 @@
             $this->Images = new ProductImages($this->ID);
             $this->Title = mb_strtoupper($this->Brand->Name . ' ' . $this->Name, 'utf8');
         }
+        /**
+         * Метод для получения размера товара по умолчанию
+         * @return Size Размер по-умолчанию
+         */
+        public function GetDefaultSize() : ?Size {
+            if(count($this->Sizes) >= 1) {
+                return $this->Sizes[0];
+            } else {
+                return null;
+            }
+        }
+        /**
+         * Метод для получения размера цвета по умолчанию
+         * @return Color Цвет по-умолчанию
+         */
+        public function GetDefaultColor() : ?Color {
+            if(count($this->Colors) >= 1) {
+                return $this->Colors[0];
+            } else {
+                return null;
+            }
+        }
     }
 ?>

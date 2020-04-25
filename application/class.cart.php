@@ -16,6 +16,7 @@
         protected Database $DB;
         protected ProductManager $ProductManager;
         public array $Items = [];
+        public int $TotalPrice = 0;
 
         /**
          * Конструктор класса корзины пользователя
@@ -29,10 +30,14 @@
 
             $result = $this->DB->call_procedure('getClientCart', [$Client->ID], true);
             if($result != null) {
-                foreach($result as $item) $this->Items[] = new CartItem([
-                    'Product' => $this->ProductManager->GetProduct($item['IDProduct']),
-                    'Amount' => $item['Amount']
-                ]);
+                foreach($result as $item) {
+                    $newItem = new CartItem([
+                        'Product' => $this->ProductManager->GetProduct($item['IDProduct']),
+                        'Amount' => $item['Amount']
+                    ]);
+                    $this->TotalPrice += $newItem->Amount * $newItem->Product->Price;
+                    $this->Items[] = $newItem;
+                }
             }
         }
         /**
@@ -45,10 +50,27 @@
         /**
          * Метод для добавления товара в корзину
          * @param $productID int ID товара
+         * @param $sizeID int ID размера
+         * @param $colorID int ID цвета
          * @return bool Результат операции
          */
-        public function AddItem(int $productID) : bool {
-            $this->DB->call_procedure('addProductCart', [$productID, $this->Client->ID]);
+        public function AddItem(int $productID, int $sizeID = 0, int $colorID = 0) : bool {
+            $product = $this->ProductManager->GetProduct($productID);
+
+            if(!empty($product)) {
+                if($sizeID == 0) {
+                    $defaultSize = $product->GetDefaultSize();
+                    if($defaultSize != null) $sizeID = $defaultSize->ID;
+                }
+                if($colorID == 0) {
+                    $defaultColor = $product->GetDefaultColor();
+                    if($defaultColor != null) $colorID = $defaultColor->ID;
+                }
+                $this->DB->call_procedure('addProductCart', [$productID, $this->Client->ID, $sizeID, $colorID]);
+            } else {
+                return false;
+            }
+            
             return true;
         }
         /**
@@ -70,6 +92,16 @@
                 if($cartItem->Product->ID == $product->ID) return true;
             }
             return false;
+        }
+        /**
+         * Метод для обновления кол-ва позиций товара
+         * @param int $count Новое количество
+         * @param int $productID ID товара
+         * @return bool Результат операции
+         */
+        public function UpdateItemCount(int $count, int $productID) : bool {
+            $this->DB->call_procedure('updateAmount', [$count, $productID, $this->Client->ID]);
+            return true;
         }
     }
 ?>

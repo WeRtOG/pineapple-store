@@ -66,8 +66,11 @@
                     break;
                 case 'POST':
                     $id = $this->AuthHelper->POSTSafeField('id');
+                    $sizeID = $this->AuthHelper->POSTSafeField('sizeID');
+                    $colorID = $this->AuthHelper->POSTSafeField('colorID');
+
                     if(!empty($id)) {
-                        $result = $this->Cart->AddItem($id);
+                        $result = $this->Cart->AddItem($id, $sizeID, $colorID);
                         if($result) {
                             API::Answer([
                                 'ok' => true,
@@ -96,6 +99,51 @@
                     $id = $this->AuthHelper->POSTSafeField('id');
                     if(!empty($id)) {
                         $result = $this->Cart->RemoveItem($id);
+                        if($result) {
+                            API::Answer([
+                                'ok' => true,
+                                'code' => 200
+                            ]);
+                        } else {
+                            $this->action_400();
+                        }
+                    } else {
+                        $this->action_400();
+                    }
+                    
+                    break;
+            }
+        }
+        /**
+         * Экшн получения суммы корзины
+         */
+        public function action_GetCartTotalPrice()
+        {
+            $totalPrice = $this->Cart->TotalPrice;
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'totalPrice' => $totalPrice,
+                'totalPriceString' => number_format($totalPrice, 2, ',', ' ') . ' ₴'
+            ]);
+        }
+        /**
+         * Метод для обновления кол-ва позиций товара
+         */
+        public function action_UpdateAmount()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $this->action_400();
+                    break;
+                case 'POST':
+                    $count = $this->AuthHelper->POSTSafeField('amount');
+                    $id = $this->AuthHelper->POSTSafeField('id');
+
+                    if($count < 1) $count = 1;
+
+                    if(!empty($id) && !empty($count)) {
+                        $result = $this->Cart->UpdateItemCount($count, $id);
                         if($result) {
                             API::Answer([
                                 'ok' => true,

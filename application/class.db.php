@@ -77,6 +77,7 @@
          */
         public function call_procedure(string $name, array $parameters = [], bool $returnArray = false) {
             $parameters_string = count($parameters) > 0 ? "'" . implode("', '", $parameters) . "'" : "";
+            $parameters_string = str_replace("'NULL'", 'NULL', $parameters_string);
             return $this->fetch_query("CALL $name($parameters_string)", $returnArray);
         }
         /**
@@ -87,6 +88,7 @@
          */
         public function call_function(string $name, array $parameters = []) {
             $parameters_string = count($parameters) > 0 ? "'" . implode("', '", $parameters) . "'" : "";
+            $parameters_string = str_replace("'NULL'", 'NULL', $parameters_string);
             return $this->fetch_query("SELECT $name($parameters_string) AS $name")[$name];
         }
         /**

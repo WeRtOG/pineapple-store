@@ -6,8 +6,9 @@
      */
     class Category {
         public int $ID;
-        public int $ParentID;
+        public int $IDCategory;
         public string $Name;
+        public array $SubCategories = [];
         
         /**
          * Конструктор объекта категории товаров

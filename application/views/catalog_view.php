@@ -1,11 +1,10 @@
 <section class="catalog-wrapper">
     <section class="catalog">
-        <?php if($data['Page'] == 1) {
+        <?php if($data['Page'] == 1 && !$data['Filtered']) {
         ?>
         <h1 class="anix" data-hold="0" data-continue="true" data-fx="move" data-direction="down">Топ продаж</h1>
         <div class="carousel anix" data-fx="move" data-direction="down" data-continue="true">
             <?php foreach($data['CarouselItems'] as $item) { ?>
-            
             <div class="card" data-id="<?=$item->ID?>" style="background-image: url(<?=$item->Images->HorizontalImage->Path?>)"><a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>"><h3><?=$item->Title?></h3></a></div>
             <?php } ?>
         </div>
@@ -52,6 +51,62 @@
                         <span class="text">Фильтр</span>
                         <img src="<?=$this->Root?>/images/filter.svg"/>
                     </h2>
+                    <div class="filters-list">
+                        <ul class="collapsible<?=$data['Filter'] != 'brand' ? ' hidden' : ''?>">
+                            <li class="header">
+                                По брендам
+                            </li>
+                            <ul class="content">
+                                <?php foreach($data['Brands'] as $brand) { ?>
+                                <a href="<?=$this->Root?>/catalog/page/1/?filter=brand&id=<?=$brand->ID?>">
+                                    <li><?=$brand->Name?></li>
+                                </a>
+                                <?php } ?>
+                            </ul>
+                        </ul>
+                        <ul class="collapsible<?=$data['Filter'] != 'category' ? ' hidden' : ''?>">
+                            <li class="header">
+                                По категориям
+                            </li>
+                            <ul class="content">
+                                <?php foreach($data['Categories'] as $category) { ?>
+                                <?php if(count($category->SubCategories) == 0) { ?>
+                                <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$category->ID?>">
+                                    <li><?=$category->Name?></li>
+                                </a>
+                                <?php } else { ?>
+                                <?php
+                                    $hide = true;
+                                    foreach($category->SubCategories as $subcategory)
+                                        if($subcategory->ID == $data['FilterID'])
+                                            $hide = false;
+                                ?>
+                                <li class="sub<?=$hide ? ' hidden' : ''?>">
+                                    <div class="header"><?=$category->Name?></div>
+                                    <ul class="content">
+                                    <?php foreach($category->SubCategories as $subcategory) { ?>
+                                    <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$subcategory->ID?>">
+                                        <li><?=$subcategory->Name?></li>
+                                    </a>
+                                    <?php } ?>
+                                    </ul>
+                                </li>
+                                <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </ul>
+                        <ul class="collapsible<?=$data['Filter'] != 'size' ? ' hidden' : ''?>">
+                            <li class="header">
+                                По размерам
+                            </li>
+                            <ul class="content">
+                                <?php foreach($data['Sizes'] as $size) { ?>
+                                <a href="<?=$this->Root?>/catalog/page/1/?filter=size&id=<?=$size->ID?>">
+                                    <li><?=$size->Size?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="all-items-content">
@@ -103,17 +158,20 @@
                 $end = $buttons + $start;
                 if($end > $all_pages) $end = $all_pages;
 
+                $q_string = '';
+                if(count($_GET) > 0) $q_string = '?' . http_build_query($_GET);
+
                 // Выводим кнопки
                 if($start != 1) {
-                    echo '<a href="' . $this->Root . '/catalog/page/1"><button class="page sw">&laquo;</button></a>';
+                    echo '<a href="' . $this->Root . '/catalog/page/1/' . $q_string . '"><button class="page sw">&laquo;</button></a>';
                 }
                 for($i = $start; $i <= $end; $i++) {
                 ?>
-                <a href="<?=$this->Root?>/catalog/page/<?=$i?>"><button class="page<?=$page == $i ? ' current' : ''?>"><?=$i?></button></a>
+                <a href="<?=$this->Root?>/catalog/page/<?=$i?>/<?=$q_string?>"><button class="page<?=$page == $i ? ' current' : ''?>"><?=$i?></button></a>
                 <?php
                 }
                 if($all_pages > $end) {
-                    echo '<a href="' . $this->Root . '/catalog/page/' . $all_pages . '"><button class="page sw">&raquo;</button></a>';
+                    echo '<a href="' . $this->Root . '/catalog/page/' . $all_pages . '/' . $q_string . '"><button class="page sw">&raquo;</button></a>';
                 }
             ?>
         </section>

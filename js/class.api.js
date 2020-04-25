@@ -30,10 +30,14 @@ class API {
     /**
      * Метод для добавления элемента в корзину
      * @param {int} itemID 
+     * @param {int} sizeID
+     * @param {int} colorID
      */
-    async AddItemToCart(itemID) {
+    async AddItemToCart(itemID, sizeID, colorID) {
         let formData = new FormData();
         formData.append('id', itemID);
+        formData.append('sizeID', sizeID);
+        formData.append('colorID', colorID);
         const response = await fetch(http_root + '/api/AddItemToCart', {method: "POST", body: formData});
         return await response.json();
     }
@@ -46,5 +50,23 @@ class API {
         formData.append('id', itemID);
         const response = await fetch(http_root + '/api/RemoveItemFromCart', {method: "POST", body: formData});
         return await response.json();
+    }
+    /**
+     * Метод для обновления кол-ва позиций товара
+     * @param {*} amount 
+     * @param {*} itemID 
+     */
+    async UpdateAmount(amount, itemID) {
+        let formData = new FormData();
+        formData.append('amount', amount);
+        formData.append('id', itemID);
+        const response = await fetch(http_root + '/api/UpdateAmount', {method: "POST", body: formData});
+        return await response.json();
+    }
+    /**
+     * Метод для получения суммы корзины
+     */
+    async GetCartTotalPrice() {
+        return await this.MakeRequest(http_root + '/api/GetCartTotalPrice');
     }
 }

@@ -60,6 +60,7 @@
                 foreach($result as $item) $sizes[] = new Size($item);
             } else {
                 $sizes[] = new Size([
+                    'ID' => '-1',
                     'Size' => '1'
                 ]);
             }
@@ -79,6 +80,7 @@
                 foreach($result as $item) $colors[] = new Color($item);
             } else {
                 $colors[] = new Color([
+                    'ID' => '-1',
                     'HEX' => '000000',
                     'Name' => 'Чёрный'
                 ]);
@@ -121,8 +123,8 @@
          */
         public function GetTopSale() : array {
             $top = [];
-            $result = $this->DB->call_procedure('topSale');
-            foreach($result as $item) $top[] = $this->GetProductFromArray($item);
+            $result = $this->DB->call_procedure('topSale', [], true);
+            if(!empty($result)) foreach($result as $item) $top[] = $this->GetProductFromArray($item);
             return $top;
         }
         /**
@@ -131,19 +133,38 @@
          */
         public function GetSeasonalOffer() : array {
             $so = [];
-            $result = $this->DB->call_procedure('getSeasonNow');
-            foreach($result as $item) $so[] = $this->GetProductFromArray($item);
+            $result = $this->DB->call_procedure('getSeasonNow', [], true);
+            if(!empty($result)) foreach($result as $item) $so[] = $this->GetProductFromArray($item);
             return $so;
         }
         /**
          * Метод для получения списка товаров
          * @param int $page Страница
+         * @param string $filter Тип фильтра
+         * @param string $filterID ID фильтра
          * @param int $countPerPage Кол-во элементов на страницу
          * @return array Массив товаров
          */
-        public function GetProducts(int $page = 1, int $countPerPage = 20) : array {
+        public function GetProducts(int $page = 1, string $filter = null, int $filterID = null, int $countPerPage = 20) : array {
             $products = [];
-            $result = $this->DB->call_procedure('getListProduct', [$page, $countPerPage], true);
+            
+            $result = null;
+            switch($filter) {
+                case 'brand':
+                    $result = $this->DB->call_procedure('getListProductBrand', [$countPerPage, $page, $filterID], true);
+                    break;
+                case 'category':
+                    $result = $this->DB->call_procedure('getListProductCategory', [$countPerPage, $page, $filterID], true);
+                    break;
+                case 'size':
+                    $result = $this->DB->call_procedure('getListProductSize', [$countPerPage, $page, $filterID], true);
+                    break;
+                default:
+                    $result = $this->DB->call_procedure('getListProduct', [$page, $countPerPage], true);
+                    break;
+                
+            }
+            
             if($result != null) foreach($result as $item) $products[] = $this->GetProductFromArray($item);
             return $products;
         }
@@ -158,12 +179,90 @@
         }
         /**
          * Метод для получения кол-ва страниц товаров
+         * @param string $filter Тип фильтра
+         * @param int $filterID ID филтра
          * @param int $countPerPage Кол-во элементов на страницу
          * @return int Кол-во страниц
          */
-        public function GetProductsPagesCount(int $countPerPage = 20) : int {
-            $result = $this->DB->call_function('getCountPages', [$countPerPage]);
+        public function GetProductsPagesCount(string $filter, int $filterID, int $countPerPage = 20) : int {
+            $result = null;
+
+            switch($filter) {
+                case 'brand':
+                    $result = $this->DB->call_function('getCountPagesBrand', [$countPerPage, $filterID]);
+                    break;
+                case 'category':
+                    $result = $this->DB->call_function('getCountPagesCategory', [$countPerPage, $filterID]);
+                    break;
+                case 'size':
+                    $result = $this->DB->call_function('getCountPagesSize', [$countPerPage, $filterID]);
+                    break;
+                default:
+                    $result = $this->DB->call_function('getCountPages', [$countPerPage]);
+                    break;
+            }
+            
+            
             return is_int((int)$result) ? $result : 0;
+        }
+        /**
+         * Метод для получения списка брендов
+         * @return array Список брендов
+         */
+        public function GetBrands() : array {
+            $brands = [];
+            
+            $list = $this->DB->call_procedure('getBrands', [], true);
+            if($list != null) {
+                foreach($list as $item) $brands[] = new Brand($item);
+            }
+
+            return $brands;
+        }
+        /**
+         * Метод для получения списка размеров
+         * @return array Список размеров
+         */
+        public function GetSizes() : array {
+            $sizes = [];
+            
+            $list = $this->DB->call_procedure('getSizes', [], true);
+            if($list != null) {
+                foreach($list as $item) $sizes[] = new Size($item);
+            }
+
+            return $sizes;
+        }
+        /**
+         * Метод для получения списка категорий
+         * @return array Список категорий
+         */
+        public function GetCategories() : ?array {
+            $categories = [];
+            $delete = [];
+
+            $result = $this->DB->call_procedure('getCategories', [], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $current = new Category($item);
+                    
+                    if(!empty($current->IDCategory)) {
+                        foreach($categories as $category) {
+                            if($category->ID == $current->IDCategory) {
+                                $category->SubCategories[] = $current;
+                                $delete[] = $current->ID;
+                            }
+                        }
+                    }
+                    $categories[] = $current;
+                }
+                foreach($delete as $d)
+                    foreach($categories as $k => $s) 
+                        if($s->ID == $d) unset($categories[$k]);
+            }
+
+            return $categories;
         }
     }
 ?>

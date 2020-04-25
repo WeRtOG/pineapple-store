@@ -47,5 +47,18 @@
 	$productMgr = new ProductManager\ProductManager($db); // Инициализируем менеджер товаров
 	$cart = new ClientCart\Cart($session_client->Client, $db, $productMgr); // Инициализируем корзину
 	
+	/* Если снова пропадут товары
+	for($i = 0; $i < 500; $i++) {
+		$db->call_procedure('addProduct', [
+			'Товар #' . $i,
+			'Бла-бла-бла',
+			4,
+			15,
+			7,
+			2077,
+			2999.99,
+		]);
+	}*/
+
 	Route::Start(); // Запускаем маршрутизатор
 ?>

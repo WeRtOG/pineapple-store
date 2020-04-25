@@ -14,9 +14,11 @@
 		 * Модель основной страницы с товарами
 		 * @param $page Страница
 		 */
-		public function GetData(int $page = 1)
+		public function GetData(int $page = 1, string $filter = null, int $filterID = null)
 		{	
-			$allItems = $this->ProductManager->GetProducts($page);
+			$pagesCount = $this->ProductManager->GetProductsPagesCount($filter, $filterID);
+			
+			$allItems = $this->ProductManager->GetProducts($page, $filter, $filterID);
 			foreach($allItems as $i => $item) {
 				if($this->Cart->ProductExists($item)) {
 					$allItems[$i]->InCart = true;
@@ -32,10 +34,16 @@
 
 			return [
 				'Page' => $page,
-				'PageCount' => $this->ProductManager->GetProductsPagesCount(),
+				'PageCount' => $pagesCount,
 				'CarouselItems' => $this->ProductManager->GetTopSale(),
 				'SeasonalOfferItems' => $seasonal,
-				'AllItems' => $allItems
+				'AllItems' => $allItems,
+				'Brands' => $this->ProductManager->GetBrands(),
+				'Categories' => $this->ProductManager->GetCategories(),
+				'Sizes' => $this->ProductManager->GetSizes(),
+				'Filter' => $filter,
+				'FilterID' => $filterID,
+				'Filtered' => ($filter != '' && $filterID != 0)
 			];
 		}
 		/**

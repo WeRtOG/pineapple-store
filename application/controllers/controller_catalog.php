@@ -18,8 +18,16 @@
          */
 		public function action_index(int $page = 1)
 		{
+			$filter = '';
+			$filterID = 0;
+
 			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
-			$data = $this->Model->GetData($page);
+
+			if(array_key_exists('filter', $_GET)) $filter = $_GET['filter'];
+			if(array_key_exists('id', $_GET)) $filterID = (int)$_GET['id'];
+			if(!is_int($filterID)) $filterID = 0;
+
+			$data = $this->Model->GetData($page, $filter, $filterID);
 			$this->View->Generate('catalog_view.php', 'Товары', 'template_view.php', $data);
 		}
 		/**

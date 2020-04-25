@@ -51,7 +51,13 @@ $(function() {
         var id = $(this).attr('data-id');
 
         if(!$(this).hasClass('already')) {
-            const response = await api.AddItemToCart(id);
+            var sizeID = $('.product-info [name=SizeSelect]:checked').attr('value');
+            var colorID = $('.product-info [name=ColorSelect]:checked').attr('value');
+
+            if(sizeID == undefined) sizeID = 0;
+            if(colorID == undefined) colorID = 0;
+
+            const response = await api.AddItemToCart(id, sizeID, colorID);
             if(response.ok) {
                 $(this).addClass('already');
                 $(this).find('.text').text('Убрать из корзины');
@@ -65,6 +71,45 @@ $(function() {
                 $(this).find('.icon').text('add_shopping_cart');
             }
         }
-
+    });
+    $('.cart-item .remove button').click(async function() {
+        $(this).parent().parent().detach();
+        const response = await api.GetCartTotalPrice();
+        if(response.ok) {
+            $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+        }
+        
+        if($('.cart-page .cart-item').length == 0) {
+            $('.cart-page').addClass('empty');
+            $('.cart-page').html('');
+        }
+    });
+    $('.cart-item .decrease').click(function() {
+        var id = $(this).attr('data-id');
+        var value = parseInt($(this).parent().find('.amount').text()) - 1;
+        if(value < 1) value = 1;
+        $(this).parent().find('.amount').text(value);
+        setTimeout(async function() {
+            await api.UpdateAmount(value, id);
+            const response = await api.GetCartTotalPrice();
+            if(response.ok) {
+                $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+            }
+        }, 0);
+    });
+    $('.cart-item .increase').click(function() {
+        var id = $(this).attr('data-id');
+        var value = parseInt($(this).parent().find('.amount').text()) + 1;
+        $(this).parent().find('.amount').text(value);
+        setTimeout(async function() {
+            await api.UpdateAmount(value, id);
+            const response = await api.GetCartTotalPrice();
+            if(response.ok) {
+                $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+            }
+        }, 0);
+    });
+    $('.collapsible .header, .collapsible .sub.hidden .header').click(function() {
+        $(this).parent().toggleClass('hidden');
     });
 });
