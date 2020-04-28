@@ -84,11 +84,14 @@
                                 <li class="sub<?=$hide ? ' hidden' : ''?>">
                                     <div class="header"><?=$category->Name?></div>
                                     <ul class="content">
-                                    <?php foreach($category->SubCategories as $subcategory) { ?>
-                                    <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$subcategory->ID?>">
-                                        <li><?=$subcategory->Name?></li>
-                                    </a>
-                                    <?php } ?>
+                                        <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$category->ID?>">
+                                            <li>Все</li>
+                                        </a>
+                                        <?php foreach($category->SubCategories as $subcategory) { ?>
+                                        <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$subcategory->ID?>">
+                                            <li><?=$subcategory->Name?></li>
+                                        </a>
+                                        <?php } ?>
                                     </ul>
                                 </li>
                                 <?php } ?>
@@ -109,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div class="all-items-content">
+            <div class="all-items-content<?=count($data['AllItems']) == 0 ? ' no-data' : ''?>">
                 <?php foreach($data['AllItems'] as $item) { ?>
                 <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
                     <article class="item-card">
@@ -138,6 +141,7 @@
                 <?php } ?>
             </div>
         </section>
+        <?php if($data['PageCount'] > 1) { ?>
         <section class="page-select anix">
             <?
                 // Получаем текующую страницу и кол-во страниц
@@ -175,5 +179,6 @@
                 }
             ?>
         </section>
+        <?php } ?>
     </section>
 </section>

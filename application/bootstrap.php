@@ -33,6 +33,8 @@
 	require_once 'class.file.io.php';
 	require_once 'class.image.php';
 	require_once 'class.client.php';
+	require_once 'class.admin.php';
+	require_once 'class.novaposhta.php';
 	require_once 'class.api.php';
 	require_once 'class.db.php';
 	require_once 'class.product.php';
@@ -43,10 +45,13 @@
 	
 	$clientMgr = new ClientManager\ClientManager($db); // Инициализируем менеджер клиентов
 	$session_client = new ClientManager\SessionClient('pineapple-user', $clientMgr, $db); // Инициализируем клиента
+	$adminAuth = new Admin\Auth('pineapple-admin');
 	$auth_helper = new ClientManager\AuthHelper($db); // Инициализируем хелпер для авторизации
 	$productMgr = new ProductManager\ProductManager($db); // Инициализируем менеджер товаров
 	$cart = new ClientCart\Cart($session_client->Client, $db, $productMgr); // Инициализируем корзину
-	
+	$npAPI = new NovaPoshta\API('2dcaea4188edd931ab6a363dfd9b4809'); // Инициализируем API Новой Почты
+
+
 	/* Если снова пропадут товары
 	for($i = 0; $i < 500; $i++) {
 		$db->call_procedure('addProduct', [

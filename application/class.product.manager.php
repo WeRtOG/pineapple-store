@@ -16,6 +16,40 @@
             $this->DB = $DB;
         }
         /**
+         * Метод для создания категории
+         * @param string $Name Название категории
+         * @param int $ParentID ID родительской категории
+         * @return bool Результат операции
+         */
+        public function CreateCategory(string $Name, int $ParentID = 0) : bool {
+            if($ParentID == 0) {
+                $this->DB->call_procedure('addCategory', [$Name]);
+            } else {
+                $this->DB->call_procedure('addSubcategory', [$ParentID, $Name]);
+            }
+
+            return true;
+        }
+        /**
+         * Метод для редактирования категории
+         * @param int $ID ID категории
+         * @param string $NewName Новое название
+         * @return bool Результат операции
+         */
+        public function EditCategory(int $ID, string $NewName) : bool {
+            $this->DB->call_procedure('updateCategory', [$ID, $NewName]);
+            return true;
+        }
+        /**
+         * Метод для удаления категории
+         * @param int $ID ID категории
+         * @return bool Результат операции
+         */
+        public function DeleteCategory(int $ID) : bool {
+            $this->DB->call_procedure('deleteCategory', [$ID]);
+            return true;
+        }
+        /**
          * Метод для получения категории по ID
          * @param int $ID ID категории
          * @return Category Категория
@@ -32,6 +66,62 @@
         public function GetBrand(int $ID) : ?Brand {
             $result = $this->DB->call_procedure('getBrand', [$ID]);
             return $result != null ? new Brand($result) : null;
+        }
+        /**
+         * Метод для добавления бренда
+         * @param string $brand Название бренда
+         * @return bool Результат операции
+         */
+        public function AddBrand(string $brand) : bool {
+            $result = $this->DB->call_procedure('addBrand', [$brand]);
+            return true;
+        }
+        /**
+         * Метод для удаления бренда
+         * @param int $id ID Бренда
+         * @return bool Результат операции
+         */
+        public function DeleteBrand(int $id) : bool {
+            $result = $this->DB->call_procedure('deleteBrand', [$id]);
+            return true;
+        }
+        /**
+         * Метод для редактирования бренда
+         * @param int $id ID Бренда
+         * @param string $name Новое имя бренда
+         * @return bool Результат операции
+         */
+        public function EditBrand(int $id, string $name) : bool {
+            $result = $this->DB->call_procedure('updateBrand', [$id, $name]);
+            return true;
+        }
+        /**
+         * Метод для добавления размера
+         * @param string $size Размер
+         * @return bool Результат операции
+         */
+        public function AddSize(string $size) : bool {
+            $result = $this->DB->call_procedure('addSize', [$size]);
+            return true;
+        }
+        /**
+         * Метод для удаления размера
+         * @param int $id ID Размера
+         * @return bool Результат операции
+         */
+        public function DeleteSize(int $id) : bool {
+            $result = $this->DB->call_procedure('deleteSize', [$id]);
+            return true;
+        }
+        /**
+         * Метод для редактирования размера
+         * @param int $id ID Размера
+         * @param string $name Новое имя размера
+         * @return bool Результат операции
+         */
+        public function EditSize(int $id, string $name) : bool {
+            $result = $this->DB->call_procedure('updateSize', [$name, $id]);
+            return true;
         }
         /**
          * Метод для получения сезона по ID

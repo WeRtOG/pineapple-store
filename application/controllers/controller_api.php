@@ -9,13 +9,14 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $auth_helper, $cart;
+            global $session_client, $clientMgr, $auth_helper, $cart, $npAPI;
 
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
             $this->AuthHelper = $auth_helper;
             $this->Root = Route::GetRoot();
             $this->Cart = $cart;
+            $this->NPAPI = $npAPI;
         }
         /**
          * Экшн коренной страницы
@@ -169,6 +170,30 @@
                 'ok' => true,
                 'code' => 200,
                 'count' => $count
+            ]);
+        }
+        /**
+         * Экшн получения списка отделений Новой Почты
+         */
+        public function action_GetWarehouses()
+        {
+            $result = $this->NPAPI->GetWarehouses();
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'result' => $result
+            ]);
+        }
+        /**
+         * Экшн получения списка отделений в отдельном городе
+         */
+        public function action_GetCityWarehouses(string $city = '') 
+        {
+            $result = $this->NPAPI->GetCityWarehouses(urldecode($city));
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'result' => $result
             ]);
         }
         /**

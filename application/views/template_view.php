@@ -57,7 +57,7 @@
 		<script src="/cdn/transit.js"></script>
 		<script src="/cdn/anix.js?v=6"></script>
 		<?php
-			$this -> LoadJS($this->Root . '/js/class.api.js');
+			$this -> LoadJS($this->Root . '/js/api.js');
 			$this -> LoadJS($this->Root . '/js/methods.js');
 			$this -> LoadJS($this->Root . '/js/events.js');
 			$this -> LoadJS($this->Root . '/js/main.js');

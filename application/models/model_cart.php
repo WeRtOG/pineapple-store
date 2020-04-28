@@ -4,16 +4,19 @@
 	 */
 	class Model_Cart extends Model
 	{
+		/**
+		 * Конструктор модели корзины
+		 */
 		public function __construct() {
 			global $productMgr, $cart;
-
 			$this->ProductManager = $productMgr;
 			$this->Cart = $cart;
 		}
 		/**
-		 * Модель корзины
+		 * Основной метод получения данных для корзины
+		 * @return array Результат
 		 */
-		public function GetData()
+		public function GetData() : array
 		{	
             return [
                 'Items' => $this->Cart->Items,
