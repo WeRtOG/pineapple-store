@@ -1,21 +1,21 @@
-<section class="brands">
+<section class="cards">
     <?php foreach($data['Brands'] as $brand) { ?>
-    <section class="brand">
+    <section class="card">
         <h1 class="name"><?=$brand->Name?></h1>
         <div class="actions">
-            <form action="<?=$this->Root?>/admin/editbrand" class="edit" method="POST">
+            <form action="<?=$this->Root?>/admin/editbrand" method="POST">
                 <input type="hidden" name="id" value="<?=$brand->ID?>"/>
                 <input type="hidden" name="name" value="<?=$brand->Name?>"/>
-                <input type="submit" value="edit"/>
+                <input title="Редактировать" type="submit" class="edit" value="edit"/>
             </form>
             <form action="<?=$this->Root?>/admin/deletebrand" data-confirm="Вы уверены, что хотите удалить этот бренд? Удаление бренда может затронуть некоторые товары" method="POST">
                 <input type="hidden" name="id" value="<?=$brand->ID?>"/>
-                <input type="submit" value="delete_forever"/>
+                <input title="Удалить" type="submit" value="delete_forever"/>
             </form>
         </div>
     </section>
     <?php } ?>
-    <form action="<?=$this->Root?>/admin/addbrand" method="POST" class="brand add">
+    <form action="<?=$this->Root?>/admin/addbrand" method="POST" class="card add">
         <input type="brand" name="brand" placeholder="Название бренда" />
         <input type="submit" value="Добавить" />
     </form>

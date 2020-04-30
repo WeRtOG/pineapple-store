@@ -9,11 +9,13 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $auth_helper, $cart, $npAPI;
+            global $session_client, $clientMgr, $productMgr, $auth_helper, $cart, $npAPI, $adminAuth;
 
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
+            $this->ProductManager = $productMgr;
             $this->AuthHelper = $auth_helper;
+            $this->AdminAuth = $adminAuth;
             $this->Root = Route::GetRoot();
             $this->Cart = $cart;
             $this->NPAPI = $npAPI;
@@ -42,6 +44,103 @@
                                 API::Answer([
                                     'ok' => true,
                                     'code' => 200,
+                                ]);
+                            } else {
+                                $this->action_400();
+                            }
+                        } else {
+                            $this->action_400();
+                        }
+                        
+                        break;
+                }
+            } else {
+                $this->action_403();
+            }
+        }
+        /**
+         * Экшн загрузки горизонтального фото товара
+         */
+        public function action_UploadHorizontalPhoto()
+        {
+            if($this->AdminAuth->IsAuthorized) {
+                switch($_SERVER['REQUEST_METHOD']) {
+                    case 'GET':
+                        $this->action_400();
+                        break;
+                    case 'POST':
+                        if(!empty($_FILES['image']) && !empty($_POST['id'])) {
+                            $result = $this->ProductManager->UploadHorizontalPhoto($_FILES['image'], $_POST['id']);
+                            
+                            if($result) {
+                                API::Answer([
+                                    'ok' => true,
+                                    'code' => 200,
+                                ]);
+                            } else {
+                                $this->action_400();
+                            }
+                        } else {
+                            $this->action_400();
+                        }
+                        
+                        break;
+                }
+            } else {
+                $this->action_403();
+            }
+        }
+        /**
+         * Экшн удаления фото товара
+         */
+        public function action_DeleteProductPhoto()
+        {
+            if($this->AdminAuth->IsAuthorized) {
+                switch($_SERVER['REQUEST_METHOD']) {
+                    case 'GET':
+                        $this->action_400();
+                        break;
+                    case 'POST':
+                        if(!empty($_POST['filename']) && !empty($_POST['id'])) {
+                            $result = $this->ProductManager->DeleteProductPhoto($_POST['id'], $_POST['filename']);
+                            
+                            if($result) {
+                                API::Answer([
+                                    'ok' => true,
+                                    'code' => 200,
+                                ]);
+                            } else {
+                                $this->action_400();
+                            }
+                        } else {
+                            $this->action_400();
+                        }
+                        
+                        break;
+                }
+            } else {
+                $this->action_403();
+            }
+        }
+        /**
+         * Экшн загрузки фото товара
+         */
+        public function action_UploadProductPhoto()
+        {
+            if($this->AdminAuth->IsAuthorized) {
+                switch($_SERVER['REQUEST_METHOD']) {
+                    case 'GET':
+                        $this->action_400();
+                        break;
+                    case 'POST':
+                        if(!empty($_FILES['image']) && !empty($_POST['id'])) {
+                            $filename = $this->ProductManager->UploadProductPhoto($_FILES['image'], $_POST['id']);
+                            
+                            if(!empty($filename)) {
+                                API::Answer([
+                                    'ok' => true,
+                                    'code' => 200,
+                                    'filename' => $filename
                                 ]);
                             } else {
                                 $this->action_400();

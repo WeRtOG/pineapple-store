@@ -2,6 +2,7 @@
     namespace ProductManager;
 
     use \DatabaseManager\Database as Database;
+    use \ImageManager\ImageManager as ImageManager;
 
     /**
      * Класс менеджера товаров
@@ -78,21 +79,21 @@
         }
         /**
          * Метод для удаления бренда
-         * @param int $id ID Бренда
+         * @param int $ID ID Бренда
          * @return bool Результат операции
          */
-        public function DeleteBrand(int $id) : bool {
-            $result = $this->DB->call_procedure('deleteBrand', [$id]);
+        public function DeleteBrand(int $ID) : bool {
+            $result = $this->DB->call_procedure('deleteBrand', [$ID]);
             return true;
         }
         /**
          * Метод для редактирования бренда
-         * @param int $id ID Бренда
+         * @param int $ID ID Бренда
          * @param string $name Новое имя бренда
          * @return bool Результат операции
          */
-        public function EditBrand(int $id, string $name) : bool {
-            $result = $this->DB->call_procedure('updateBrand', [$id, $name]);
+        public function EditBrand(int $ID, string $name) : bool {
+            $result = $this->DB->call_procedure('updateBrand', [$ID, $name]);
             return true;
         }
         /**
@@ -106,21 +107,86 @@
         }
         /**
          * Метод для удаления размера
-         * @param int $id ID Размера
+         * @param int $ID ID Размера
          * @return bool Результат операции
          */
-        public function DeleteSize(int $id) : bool {
-            $result = $this->DB->call_procedure('deleteSize', [$id]);
+        public function DeleteSize(int $ID) : bool {
+            $result = $this->DB->call_procedure('deleteSize', [$ID]);
             return true;
         }
         /**
          * Метод для редактирования размера
-         * @param int $id ID Размера
+         * @param int $ID ID Размера
          * @param string $name Новое имя размера
          * @return bool Результат операции
          */
-        public function EditSize(int $id, string $name) : bool {
-            $result = $this->DB->call_procedure('updateSize', [$name, $id]);
+        public function EditSize(int $ID, string $name) : bool {
+            $result = $this->DB->call_procedure('updateSize', [$name, $ID]);
+            return true;
+        }
+        /**
+         * Метод для добавления сезона
+         * @param string $season Сезон
+         * @param string $dateFrom Дата начала сезона
+         * @param string $dateTo Дата окончания сезона
+         */
+        public function AddSeason(string $season, string $dateFrom, string $dateTo) : bool {
+            $result = $this->DB->call_procedure('addSeason', [$season, $dateFrom, $dateTo]);
+            return true;
+        }
+        /**
+         * Метод для удаления сезона
+         * @param int $ID ID сезона
+         */
+        public function DeleteSeason(int $ID) : bool {
+            $result = $this->DB->call_procedure('deleteSeason', [$ID]);
+            return true;
+        }
+        /**
+         * Метод для редактирования сезона
+         * @param int $ID ID сезона
+         * @param string $name Новое имя сезона
+         * @param string $dateFrom Новая дата начала сезона
+         * @param string $dateTo Новая дата окончания сезона
+         */
+        public function EditSeason(int $ID, string $name, string $dateFrom, string $dateTo) : bool {
+            $result = $this->DB->call_procedure('updateSeason', [$name, $ID, $dateFrom, $dateTo]);
+            return true;
+        }
+        /**
+         * Метод для добавления цвета
+         * @param string $colorName Имя цвета
+         * @param string $color Цвет
+         * @param string $dateTo Дата окончания сезона
+         */
+        public function AddColor(string $colorName, string $color) : bool {
+            $result = $this->DB->call_procedure('addColor', [$color, $colorName]);
+            return true;
+        }
+        /**
+         * Метод для удаления цвета
+         * @param int $ID ID цвета
+         */
+        public function DeleteColor(int $ID) : bool {
+            $result = $this->DB->call_procedure('deleteColor', [$ID]);
+            return true;
+        }
+        /**
+         * Метод для удаления товара
+         * @param int $ID ID цвета
+         */
+        public function DeleteProduct(int $ID) : bool {
+            $result = $this->DB->call_procedure('deleteProduct', [$ID]);
+            return true;
+        }
+        /**
+         * Метод для редактирования цвета
+         * @param int $ID ID цвета
+         * @param string $name Новое имя цвета
+         * @param string $color Новый Цвет
+         */
+        public function EditColor(int $ID, string $name, string $color) : bool {
+            $result = $this->DB->call_procedure('updateColor', [$color, $name, $ID]);
             return true;
         }
         /**
@@ -274,7 +340,7 @@
          * @param int $countPerPage Кол-во элементов на страницу
          * @return int Кол-во страниц
          */
-        public function GetProductsPagesCount(string $filter, int $filterID, int $countPerPage = 20) : int {
+        public function GetProductsPagesCount(string $filter = '', int $filterID = 0, int $countPerPage = 20) : int {
             $result = null;
 
             switch($filter) {
@@ -327,7 +393,7 @@
          * Метод для получения списка категорий
          * @return array Список категорий
          */
-        public function GetCategories() : ?array {
+        public function GetCategories() : array {
             $categories = [];
             $delete = [];
 
@@ -353,6 +419,153 @@
             }
 
             return $categories;
+        }
+        /**
+         * Метод для получения списка категорий (без группировки)
+         * @return array Список категорий
+         */
+        public function GetAllCategories() : array {
+            $categories = [];
+            $delete = [];
+
+            $result = $this->DB->call_procedure('getCategories', [], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $categories[] = new Category($item);
+                }
+            }
+
+            return $categories;
+        }
+        /**
+         * Метод для получения списка сезонов
+         * @return array Список сезонов
+         */
+        public function GetSeasons() : array {
+            $seasons = [];
+            $result = $this->DB->call_procedure('getSeasons', [], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $seasons[] = new Season($item);
+                }
+            }
+
+            return $seasons;
+        }
+        /**
+         * Метод для получения списка цветов
+         * @return array Список цветов
+         */
+        public function GetColors() : array {
+            $colors = [];
+            $result = $this->DB->call_procedure('getColor', [], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $colors[] = new Color($item);
+                }
+            }
+
+            return $colors;
+        }
+        /**
+         * Метод для загрузки аватара
+         * @param array $file Файл
+         * @param int $ID ID товара
+         * @return bool Результат операции
+         */
+        public function UploadHorizontalPhoto(array $file, int $ID) : bool {
+            $type = explode('/', $file['type'])[0];
+
+            if($type == 'image') {
+                $extension = \File\IO::GetExtension($file['name']);
+
+                if(in_array($extension, ['png', 'jpg', 'jpeg', 'gif'])) {
+                    $from = \File\IO::GetTempFile($file['tmp_name'], $extension);
+                    $to = UPLOADS_FOLDER . '/product/' . $ID. '/horizontal.webp';
+                    $result = ImageManager::OptimizeImage($from, $to);
+                    \File\IO::DeleteTempFile($from);
+                    
+                    return $result;
+                }
+            }
+            return false;
+        }
+        /**
+         * Метод для удаления фото товара
+         * @param int $ID ID товара
+         * @param string $filename Имя фото
+         */
+        public function DeleteProductPhoto(int $ID, string $filename) : bool {
+            unlink(UPLOADS_FOLDER . '/product/' . $ID. '/images/' . $filename);
+            return true;
+        }
+        /**
+         * Метод для загрузки аватара
+         * @param array $file Файл
+         * @param int $ID ID товара
+         * @return string Имя файла
+         */
+        public function UploadProductPhoto(array $file, int $ID) : string {
+            $type = explode('/', $file['type'])[0];
+
+            if($type == 'image') {
+                $extension = \File\IO::GetExtension($file['name']);
+
+                if(in_array($extension, ['png', 'jpg', 'jpeg', 'gif'])) {
+                    $filename = time() . '.webp';
+                    $from = \File\IO::GetTempFile($file['tmp_name'], $extension);
+                    $to = UPLOADS_FOLDER . '/product/' . $ID. '/images/' . $filename;
+                    $result = ImageManager::OptimizeImage($from, $to);
+                    \File\IO::DeleteTempFile($from);
+                    
+                    return $result ? $filename : '';
+                }
+            }
+            return false;
+        }
+        /**
+         * Метод для обновления информации о товаре
+         * @param string $name Имя товара
+         * @param int $year Год
+         * @param int $price Цена
+         * @param int $category Категория (id)
+         * @param int $brand Бренд (id)
+         * @param int $season Сезон (id)
+         * @param array $colors Цвета
+         * @param array $sizes Размеры
+         * @param string $description Описание
+         * @param int $ID ID товара
+         */
+        public function UpdateProduct(string $name, int $year, int $price, int $category, int $brand, int $season, array $colors, array $sizes, string $description, int $ID) {
+            $this->DB->call_procedure('updateProduct', [$ID, $name, $description, $brand, $category, $season, $year, $price]);
+            $this->DB->call_procedure('clearProductSizesAndColors', [$ID]);
+            
+            foreach($colors as $color) $this->DB->call_procedure('addColorProduct', [$color, $ID]);
+            foreach($sizes as $size) $this->DB->call_procedure('addSizeProduct', [$size, $ID]);
+        }
+        /**
+         * Метод для добавления товара
+         * @param string $name Имя товара
+         * @param int $year Год
+         * @param int $price Цена
+         * @param int $category Категория (id)
+         * @param int $brand Бренд (id)
+         * @param int $season Сезон (id)
+         * @param array $colors Цвета
+         * @param array $sizes Размеры
+         * @param string $description Описание
+         * @return int ID товара
+         */
+        public function AddProduct(string $name, int $year, int $price, int $category, int $brand, int $season, array $colors, array $sizes, string $description) {
+            $ID = $this->DB->call_function('addProduct', [$name, $description, $brand, $category, $season, $year, $price]);
+            
+            foreach($colors as $color) $this->DB->call_procedure('addColorProduct', [$color, $ID]);
+            foreach($sizes as $size) $this->DB->call_procedure('addSizeProduct', [$size, $ID]);
+
+            return $ID;
         }
     }
 ?>

@@ -69,5 +69,34 @@
         public function GenerateToken() : string {
             return $this->DB->call_function('createToken');
         }
+        /**
+         * Метод для получения списка клиентов
+         * @param int $page Страница
+         * @param int $countPerPage Кол-во клиентов на страницу
+         * @return array Список клиентов
+         */
+        public function GetClients(int $page = 1, int $countPerPage = 20) : array {
+            $clients = [];
+            $result = $this->DB->call_procedure('getClients', [$countPerPage, $page], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $clients[] = new Client($item);
+                }
+            }
+
+            return $clients;
+        }
+        /**
+         * Метод для получения кол-во страниц списка клиентов
+         * @param int $countPerPage Кол-во элементов на страницу
+         * @return int Кол-во страниц
+         */
+        public function GetClientsPageCount(int $countPerPage = 20) : int {
+            $result = $this->DB->call_function('getCountPagesClient', [$countPerPage]);
+            $result = is_int((int)$result) ? $result : 1;
+            if($result < 1) $result = 1;
+            return $result;
+        }
     }
 ?>

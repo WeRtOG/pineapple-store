@@ -73,11 +73,13 @@
 		}
 		/**
          * Экшн страницы товаров
+		 * @param int $page Страница
          */
-		public function action_products()
+		public function action_products(int $page = 1)
 		{
+			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
 			$this->ShowLoginFormIfNeeded();
-			$this->View->Generate('admin/products_view.php', 'Товары', 'admin/template_view.php');
+			$this->View->Generate('admin/products_view.php', 'Товары', 'admin/template_view.php', $this->Model->GetProducts($page));
 		}
 		/**
          * Экшн страницы сезонов
@@ -85,7 +87,7 @@
 		public function action_seasons()
 		{
 			$this->ShowLoginFormIfNeeded();
-			$this->View->Generate('admin/seasons_view.php', 'Сезоны', 'admin/template_view.php');
+			$this->View->Generate('admin/seasons_view.php', 'Сезоны', 'admin/template_view.php', $this->Model->GetSeasons());
 		}
 		/**
          * Экшн страницы размеров
@@ -101,7 +103,17 @@
 		public function action_colors()
 		{
 			$this->ShowLoginFormIfNeeded();
-			$this->View->Generate('admin/colors_view.php', 'Цвета', 'admin/template_view.php');
+			$this->View->Generate('admin/colors_view.php', 'Цвета', 'admin/template_view.php', $this->Model->GetColors());
+		}
+		/**
+         * Экшн страницы клиентов
+		 * @param int $page Страница
+         */
+		public function action_clients(int $page = 1)
+		{
+			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
+			$this->ShowLoginFormIfNeeded();
+			$this->View->Generate('admin/clients_view.php', 'Клиенты', 'admin/template_view.php', $this->Model->GetClients($page));
 		}
 		/**
 		 * Экшн добавления бренда
@@ -131,8 +143,8 @@
 					Route::Navigate('admin/brands');
 					break;
 				case 'POST':
-					$id = $this->AuthHelper->POSTSafeField('id');
-					$this->Model->DeleteBrand($id);
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$this->Model->DeleteBrand($ID);
 					Route::Navigate('admin/brands');
 					break;
 			}
@@ -148,9 +160,9 @@
 					Route::Navigate('admin/brands');
 					break;
 				case 'POST':
-					$id = $this->AuthHelper->POSTSafeField('id');
+					$ID = $this->AuthHelper->POSTSafeField('id');
 					$name = $this->AuthHelper->POSTSafeField('name');
-					$this->Model->EditBrand($id, $name);
+					$this->Model->EditBrand($ID, $name);
 					Route::Navigate('admin/brands');
 					break;
 			}
@@ -183,8 +195,8 @@
 					Route::Navigate('admin/sizes');
 					break;
 				case 'POST':
-					$id = $this->AuthHelper->POSTSafeField('id');
-					$this->Model->DeleteSize($id);
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$this->Model->DeleteSize($ID);
 					Route::Navigate('admin/sizes');
 					break;
 			}
@@ -200,10 +212,202 @@
 					Route::Navigate('admin/sizes');
 					break;
 				case 'POST':
-					$id = $this->AuthHelper->POSTSafeField('id');
+					$ID = $this->AuthHelper->POSTSafeField('id');
 					$name = $this->AuthHelper->POSTSafeField('name');
-					$this->Model->EditSize($id, $name);
+					$this->Model->EditSize($ID, $name);
 					Route::Navigate('admin/sizes');
+					break;
+			}
+		}
+		/**
+		 * Экшн добавления сезона
+		 */
+		public function action_addseason()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/seasons');
+					break;
+				case 'POST':
+					$season = $this->AuthHelper->POSTSafeField('season');
+					$dateFrom = $this->AuthHelper->POSTSafeField('dateFrom');
+					$dateTo = $this->AuthHelper->POSTSafeField('dateTo');
+					$this->Model->AddSeason($season, $dateFrom, $dateTo);
+					Route::Navigate('admin/seasons');
+					break;
+			}
+		}
+		/**
+		 * Экшн удаления сезона
+		 */
+		public function action_deleteseason()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/seasons');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$this->Model->DeleteSeason($ID);
+					Route::Navigate('admin/seasons');
+					break;
+			}
+		}
+		/**
+		 * Экшн редактирования сезона
+		 */
+		public function action_editseason()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/seasons');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$name = $this->AuthHelper->POSTSafeField('name');
+					$dateFrom = $this->AuthHelper->POSTSafeField('dateFrom');
+					$dateTo = $this->AuthHelper->POSTSafeField('dateTo');
+					$this->Model->EditSeason($ID, $name, $dateFrom, $dateTo);
+					Route::Navigate('admin/seasons');
+					break;
+			}
+		}
+		/**
+		 * Экшн добавления цвета
+		 */
+		public function action_addcolor()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/colors');
+					break;
+				case 'POST':
+					$colorName = $this->AuthHelper->POSTSafeField('color-name');
+					$color = $this->AuthHelper->POSTSafeField('color');
+					$this->Model->AddColor($colorName, $color);
+					Route::Navigate('admin/colors');
+					break;
+			}
+		}
+		/**
+		 * Экшн удаления цвета
+		 */
+		public function action_deletecolor()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/colors');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$this->Model->DeleteColor($ID);
+					Route::Navigate('admin/colors');
+					break;
+			}
+		}
+		/**
+		 * Экшн редактирования цвета
+		 */
+		public function action_editcolor()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/colors');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$name = $this->AuthHelper->POSTSafeField('name');
+					$color = $this->AuthHelper->POSTSafeField('color');
+					$this->Model->EditColor($ID, $name, $color);
+					Route::Navigate('admin/colors');
+					break;
+			}
+		}
+		/**
+		 * Экшн удаления товара
+		 */
+		public function action_deleteproduct()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/products');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$this->Model->DeleteProduct($ID);
+					Route::Navigate('admin/products');
+					break;
+			}
+		}
+		/**
+		 * Экшн редактирования товара
+		 * @param int $ID ID товара
+		 */
+		public function action_editproduct(int $ID = 0)
+		{
+			$this->ShowLoginFormIfNeeded();
+			$data = $this->Model->GetProduct($ID);
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					if(!empty($data['Product'])) {
+						$this->View->Generate('admin/product_edit_view.php', $data['Product']->Title, 'admin/template_view.php', $data);
+					} else {
+						Route::Navigate('admin/products');
+					}
+					break;
+				case 'POST':
+					if(!empty($data['Product'])) {
+						$name = $this->AuthHelper->POSTSafeField('name');
+						$year = (int)$this->AuthHelper->POSTSafeField('year');
+						$price = (int)$this->AuthHelper->POSTSafeField('price');
+						$category = (int)$this->AuthHelper->POSTSafeField('category');
+						$brand = (int)$this->AuthHelper->POSTSafeField('brand');
+						$season = (int)$this->AuthHelper->POSTSafeField('season');
+						$colors = array_key_exists('colors', $_POST) ? $_POST['colors'] : [];
+						$sizes = array_key_exists('sizes', $_POST) ? $_POST['sizes'] : [];
+						$description = $_POST['description'];
+
+						$this->Model->UpdateProduct($name, $year, $price, $category, $brand, $season, $colors, $sizes, $description, $ID);
+						Route::Navigate('admin/editproduct/' . $ID . '/?');
+					} else {
+						Route::Navigate('admin/products');
+					}
+					break;
+			}
+		}
+		/**
+		 * Экшн добавления товара
+		 */
+		public function action_addproduct()
+		{
+			$this->ShowLoginFormIfNeeded();
+			
+			$data = $this->Model->AddProductModel();
+
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					$this->View->Generate('admin/product_add_view.php', 'Добавление товара', 'admin/template_view.php', $data);
+					break;
+				case 'POST':
+					$name = $this->AuthHelper->POSTSafeField('name');
+					$year = (int)$this->AuthHelper->POSTSafeField('year');
+					$price = (int)$this->AuthHelper->POSTSafeField('price');
+					$category = (int)$this->AuthHelper->POSTSafeField('category');
+					$brand = (int)$this->AuthHelper->POSTSafeField('brand');
+					$season = (int)$this->AuthHelper->POSTSafeField('season');
+					$colors = array_key_exists('colors', $_POST) ? $_POST['colors'] : [];
+					$sizes = array_key_exists('sizes', $_POST) ? $_POST['sizes'] : [];
+					$description = $_POST['description'];
+
+					$ID = $this->Model->AddProduct($name, $year, $price, $category, $brand, $season, $colors, $sizes, $description);
+					Route::Navigate('admin/editproduct/' . $ID . '/?');
 					break;
 			}
 		}

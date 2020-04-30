@@ -1,5 +1,5 @@
 <section class="auth-form-wrapper">
-    <form method="POST" class="auth-form">
+    <form method="POST" class="auth-form anix">
         <img src="/images/logo-color.svg?v=0" width="100px" />
         <input type="login" name="login" placeholder="Логин" />
         <input type="password" name="password" placeholder="Пароль"/>

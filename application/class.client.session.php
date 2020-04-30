@@ -106,7 +106,7 @@
         }
         /**
          * Метод для загрузки аватара
-         * @param array Файл
+         * @param array $file Файл
          * @return bool Результат операции
          */
         public function UploadAvatar(array $file) : bool {

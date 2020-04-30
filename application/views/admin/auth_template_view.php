@@ -12,5 +12,8 @@
     </head>
     <body>
         <?php include 'application/views/'.$content_view; ?>
+        <script src="/cdn/jquery.js"></script>
+		<script src="/cdn/transit.js"></script>
+		<script src="/cdn/anix.js?v=6"></script>
     </body>
 </html>

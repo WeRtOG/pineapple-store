@@ -272,8 +272,12 @@ article.item-card {
     color: black;
     text-align: center;
 }
-article.item-card img {
-    width: 80%;
+article.item-card .image {
+    width: 280px;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: auto;
     margin-top: 10px;
 }

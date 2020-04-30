@@ -12,11 +12,12 @@
 			$this -> LoadCSS($this->Root . '/css/admin-main.css');
 		?>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script>var http_root = '<?=$this->Root?>'</script>
     </head>
     <body>
         <section class="main">
-            <section class="sidebar">
+            <section class="sidebar anix">
                 <a href="<?=$this->Root?>/admin/brands" <?=$controller_action == 'brands' ? 'class="active"' : ''?>>
                     <span class="material-icons">label</span>
                     <span class="text">Бренды</span>
@@ -25,7 +26,7 @@
                     <span class="material-icons">category</span>
                     <span class="text">Категории</span>
                 </a>
-                <a href="<?=$this->Root?>/admin/products" <?=$controller_action == 'products' ? 'class="active"' : ''?>>
+                <a href="<?=$this->Root?>/admin/products" <?=$controller_action == 'products' || $controller_action == 'editproduct' ? 'class="active"' : ''?>>
                     <span class="material-icons">storefront</span>
                     <span class="text">Товары</span>
                 </a>
@@ -41,12 +42,16 @@
                     <span class="material-icons">invert_colors</span>
                     <span class="text">Цвета</span>
                 </a>
+                <a href="<?=$this->Root?>/admin/clients" <?=$controller_action == 'clients' ? 'class="active"' : ''?>>
+                    <span class="material-icons">people_outline</span>
+                    <span class="text">Клиенты</span>
+                </a>
                 <a href="<?=$this->Root?>/admin/logout">
                     <span class="material-icons">exit_to_app</span>
                     <span class="text">Выйти</span>
                 </a>
             </section>
-            <section class="content">
+            <section class="content anix">
                 <?php include 'application/views/'.$content_view; ?>
             </section>
         </section>

@@ -5,7 +5,7 @@ html, body {
     padding: 0;
 }
 html {
-    --ui-gradient: linear-gradient(to right, rgb(255,194,0), rgb(255,0,99));
+    --ui-gradient: linear-gradient(to left, rgb(44, 44, 51) 0%, rgb(18, 18, 20) 100%);
     background: #ddd;
     font-family: 'Roboto', sans-serif;
 }
@@ -48,3 +48,4 @@ html {
 .auth-form-wrapper form .error {
     margin-top: 30px;
 }
+.anix { opacity: 0 }

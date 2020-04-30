@@ -13,7 +13,7 @@
             <?php foreach($data['SeasonalOfferItems'] as $item) { ?>
             <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
                 <article class="item-card">
-                    <img src="<?=$item->Images->ImagesList[0]->Path?>"/>
+                    <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                     <h2><?=$item->Title?></h2>
                     <h4><?=$item->Category->Name?></h4>
                     <h4>
@@ -116,7 +116,7 @@
                 <?php foreach($data['AllItems'] as $item) { ?>
                 <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
                     <article class="item-card">
-                        <img src="<?=$item->Images->ImagesList[0]->Path?>"/>
+                        <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                         <h2><?=$item->Title?></h2>
                         <h4><?=$item->Category->Name?></h4>
                         <h4>

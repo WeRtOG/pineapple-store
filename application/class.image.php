@@ -9,6 +9,7 @@
     class Image {
         public string $Path;
         public string $AbsolutePath;
+        public string $Filename;
         public int $ModificationTime;
 
         /**
@@ -22,6 +23,7 @@
             $this->FilePath = $_SERVER['DOCUMENT_ROOT'] . $root . $Path;
             $this->LastEditedTime = file_exists($this->FilePath) ? filemtime($this->FilePath) : null;
             $this->Path = $root . $Path . '?v=' . $this->LastEditedTime;
+            $this->Filename = basename($Path);
         }
     }
 ?>
