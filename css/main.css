@@ -271,6 +271,8 @@ article.item-card {
     outline: none;
     color: black;
     text-align: center;
+    padding-bottom: 10px;
+    box-sizing: border-box;
 }
 article.item-card .image {
     width: 280px;
