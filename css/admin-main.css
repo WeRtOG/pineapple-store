@@ -388,5 +388,124 @@ html {
     border-radius: 4px;
     margin: 2px;
 }
+.orders {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.orders .order, .orders .order-items {
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    color: black;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+.orders .order-items {
+    display: block;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    padding: 0px;
+}
+.orders .order-wrapper.toggled .order-items {
+    opacity: 1;
+    max-height: fit-content;
+    padding: 20px;
+}
+.orders .order-items .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.orders .order .image, .orders .order-items .image {
+    min-width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+.orders .order .info {
+    width: 100%;
+}
+.orders .order button {
+    min-width: 64px;
+    height: 64px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+.orders .order button span {
+    transition: all 0.3s ease;
+}
+.orders .order {
+    cursor: pointer;
+}
+.orders .order:hover button {
+    background: rgba(0,0,0,0.1);
+}
+.orders .order-wrapper.toggled .order button span {
+    transform: rotate(180deg)
+}
+.orders .order button span {
+    font-size: 48px;
+}
+.orders .order h1, .orders .order-items h1 {
+    font-size: 32px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+.orders .order h2, .orders .order-items h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+.orders .order h2 select {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+.back-button {
+    border: none;
+    padding: 10px;
+    width: 100px;
+    margin: 5px;
+    background: transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    outline: none;
+}
+.back-button span {
+    font-size: 18px !important;
+}
+.back-button:hover {
+    background-color: rgba(0,0,0,.1);
+}
 .anix { opacity: 0 }
 a { color: inherit; text-decoration: inherit; }
+@media (min-device-width: 2000px){
+    html{
+        zoom: 2;
+        zoom: 200%;
+    }
+}

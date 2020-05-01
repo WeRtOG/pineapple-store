@@ -65,18 +65,22 @@
 		}
 		/**
          * Экшн страницы категорий
+		 * @param $parentID ID родительской категории
          */
-		public function action_categories()
+		public function action_categories($parentID = -1)
 		{
+			$parentID = (int)$parentID;
+			if(empty($parentID) || !is_int($parentID)) $parentID = -1;
 			$this->ShowLoginFormIfNeeded();
-			$this->View->Generate('admin/categories_view.php', 'Категории', 'admin/template_view.php');
+			$this->View->Generate('admin/categories_view.php', 'Категории', 'admin/template_view.php', $this->Model->GetCategories($parentID));
 		}
 		/**
          * Экшн страницы товаров
-		 * @param int $page Страница
+		 * @param $page Страница
          */
-		public function action_products(int $page = 1)
+		public function action_products($page = 1)
 		{
+			$page = (int)$page;
 			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
 			$this->ShowLoginFormIfNeeded();
 			$this->View->Generate('admin/products_view.php', 'Товары', 'admin/template_view.php', $this->Model->GetProducts($page));
@@ -107,13 +111,25 @@
 		}
 		/**
          * Экшн страницы клиентов
-		 * @param int $page Страница
+		 * @param $page Страница
          */
-		public function action_clients(int $page = 1)
+		public function action_clients($page = 1)
 		{
+			$page = (int)$page;
 			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
 			$this->ShowLoginFormIfNeeded();
 			$this->View->Generate('admin/clients_view.php', 'Клиенты', 'admin/template_view.php', $this->Model->GetClients($page));
+		}
+		/**
+         * Экшн страницы заказов
+		 * @param $page Страница
+         */
+		public function action_orders($page = 1)
+		{
+			$page = (int)$page;
+			if(empty($page) || !is_int($page) || $page < 1) $page = 1;
+			$this->ShowLoginFormIfNeeded();
+			$this->View->Generate('admin/orders_view.php', 'Заказы', 'admin/template_view.php', $this->Model->GetOrders($page));
 		}
 		/**
 		 * Экшн добавления бренда
@@ -164,6 +180,80 @@
 					$name = $this->AuthHelper->POSTSafeField('name');
 					$this->Model->EditBrand($ID, $name);
 					Route::Navigate('admin/brands');
+					break;
+			}
+		}
+		/**
+		 * Экшн добавления категории
+		 */
+		public function action_addcategory()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/categories');
+					break;
+				case 'POST':
+					$category = $this->AuthHelper->POSTSafeField('category');
+					$parentID = (int)$this->AuthHelper->POSTSafeField('parentID');
+					$this->Model->AddCategory($category, $parentID);
+					
+					if($parentID != -1) {
+						Route::Navigate('admin/categories/' . $parentID);
+					} else {
+						Route::Navigate('admin/categories');
+					}
+					
+					break;
+			}
+		}
+		/**
+		 * Экшн удаления категории
+		 */
+		public function action_deletecategory()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/categories');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$parentID = (int)$this->AuthHelper->POSTSafeField('parentID');
+					$this->Model->DeleteCategory($ID);
+
+					if($parentID != -1) {
+						Route::Navigate('admin/categories/' . $parentID);
+					} else {
+						Route::Navigate('admin/categories');
+					}
+
+					break;
+			}
+		}
+		/**
+		 * Экшн редактирования категории
+		 */
+		public function action_editcategory()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/categories');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$name = $this->AuthHelper->POSTSafeField('name');
+					$parentID = (int)$this->AuthHelper->POSTSafeField('parentID');
+
+					$this->Model->EditCategory($ID, $name);
+					
+					if($parentID != -1) {
+						Route::Navigate('admin/categories/' . $parentID);
+					} else {
+						Route::Navigate('admin/categories');
+					}
+					
 					break;
 			}
 		}
@@ -341,17 +431,19 @@
 					break;
 				case 'POST':
 					$ID = $this->AuthHelper->POSTSafeField('id');
+					$Page = $this->AuthHelper->POSTSafeField('page');
 					$this->Model->DeleteProduct($ID);
-					Route::Navigate('admin/products');
+					Route::Navigate('admin/products/' . $Page);
 					break;
 			}
 		}
 		/**
 		 * Экшн редактирования товара
-		 * @param int $ID ID товара
+		 * @param $ID ID товара
 		 */
-		public function action_editproduct(int $ID = 0)
+		public function action_editproduct($ID = 0)
 		{
+			$ID = (int)$ID;
 			$this->ShowLoginFormIfNeeded();
 			$data = $this->Model->GetProduct($ID);
 			switch($_SERVER['REQUEST_METHOD']) {
@@ -408,6 +500,25 @@
 
 					$ID = $this->Model->AddProduct($name, $year, $price, $category, $brand, $season, $colors, $sizes, $description);
 					Route::Navigate('admin/editproduct/' . $ID . '/?');
+					break;
+			}
+		}
+		/**
+		 * Метод смены статуса заказа
+		 */
+		public function action_ChangeOrderStatus()
+		{
+			$this->ShowLoginFormIfNeeded();
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'GET':
+					Route::Navigate('admin/orders');
+					break;
+				case 'POST':
+					$ID = $this->AuthHelper->POSTSafeField('id');
+					$Page = $this->AuthHelper->POSTSafeField('page');
+					$Status = (int)$this->AuthHelper->POSTSafeField('status');
+					$this->Model->ChangeOrderStatus($ID, $Status);
+					Route::Navigate('admin/orders/' . $page);
 					break;
 			}
 		}

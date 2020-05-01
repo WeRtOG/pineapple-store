@@ -21,6 +21,7 @@
             </form>
             <form action="<?=$this->Root?>/admin/deleteproduct" data-confirm="Вы уверены, что хотите удалить этот товар?" method="POST">
                 <input type="hidden" name="id" value="<?=$product->ID?>"/>
+                <input type="hidden" name="page" value="<?=$data['Page']?>"/>
                 <input title="Удалить" type="submit" value="delete_forever"/>
             </form>
         </div>

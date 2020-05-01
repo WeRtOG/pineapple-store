@@ -16,8 +16,9 @@
          * Экшн коренной страницы
 		 * @param $page Номер страницы
          */
-		public function action_index(int $page = 1)
+		public function action_index($page = 1)
 		{
+			$page = (int)$page;
 			$filter = '';
 			$filterID = 0;
 
@@ -34,7 +35,7 @@
          * Экшн постраничного вывода товаров (дублирует коренную)
 		 * @param $page Номер страницы
          */
-		public function action_page(int $page = 1)
+		public function action_page($page = 1)
 		{
 			$this->action_index($page);
 		}

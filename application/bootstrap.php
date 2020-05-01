@@ -52,7 +52,7 @@
 	$cart = new ClientCart\Cart($session_client->Client, $db, $productMgr); // Инициализируем корзину
 	$npAPI = new NovaPoshta\API('2dcaea4188edd931ab6a363dfd9b4809'); // Инициализируем API Новой Почты
 	$citiesMgr = new CitiesManager\CitiesManager($db); // Инициализируем менеджер городов
-	$orderMgr = new OrderManager\OrderManager($db, $productMgr); // Инициализируем менеджер заказов
+	$orderMgr = new OrderManager\OrderManager($db, $productMgr, $clientMgr); // Инициализируем менеджер заказов
 
 
 	/* Если снова пропадут товары

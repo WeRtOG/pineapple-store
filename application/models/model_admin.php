@@ -8,9 +8,11 @@
          * Конструктор модели админки
          */
 		public function __construct() {
-			global $productMgr, $clientMgr;
+            global $productMgr, $clientMgr, $orderMgr;
+            
             $this->ProductManager = $productMgr;
             $this->ClientManager = $clientMgr;
+            $this->OrderManager = $orderMgr;
         }
         /**
          * Метод для получения списка брендов
@@ -20,6 +22,20 @@
 		{	
             return [
                 'Brands' => $this->ProductManager->GetBrands()
+            ];
+        }
+        /**
+         * Метод для получения списка категорий
+         * @param int $parentID ID родительской категории
+         * @return array Список категорий
+         */
+		public function GetCategories(int $parentID = -1) : array
+		{	
+            $categories = $parentID == -1 ? $this->ProductManager->GetCategories() : $this->ProductManager->GetSubCategories($parentID);
+            return [
+                'IsRoot' => $parentID == -1,
+                'ParentID' => $parentID,
+                'Categories' => $categories
             ];
         }
         /**
@@ -107,6 +123,20 @@
             ];
         }
         /**
+         * Метод для получения списка заказов
+         * @param int $page Страница
+         * @return array Список заказов
+         */
+        public function GetOrders(int $page = 1) : array
+		{	
+            return [
+                'Page' => $page,
+                'PageCount' => $this->OrderManager->GetOrdersPagesCount(),
+                'Orders' => $this->OrderManager->GetOrders($page),
+                'Statuses' => $this->OrderManager->GetStatuses()
+            ];
+        }
+        /**
          * Метод для создания бренда
          * @param string $brand Бренд
          */
@@ -131,6 +161,33 @@
         {
             if(empty($name)) return;
             $this->ProductManager->EditBrand($ID, $name);
+        }
+        /**
+         * Метод для создания категории
+         * @param string $category Название категории
+         * @param int $parentID ID родительской категории
+         */
+        public function AddCategory(string $category, $parentID)
+        {
+            $this->ProductManager->CreateCategory($category, $parentID);
+        }
+        /**
+         * Метод для удаления категории
+         * @param int $ID ID категории
+         */
+        public function DeleteCategory(int $ID)
+        {
+            $this->ProductManager->DeleteCategory($ID);
+        }
+        /**
+         * Метод для редактирования категории
+         * @param int $ID ID категории
+         * @param string $name Новое имя категории
+         */
+        public function EditCategory(int $ID, string $name)
+        {
+            if(empty($name)) return;
+            $this->ProductManager->EditCategory($ID, $name);
         }
         /**
          * Метод для добавления размера
@@ -260,6 +317,15 @@
         public function AddProduct(string $name, int $year, int $price, int $category, int $brand, int $season, array $colors, array $sizes, string $description) : int
         {
             return $this->ProductManager->AddProduct($name, $year, $price, $category, $brand, $season, $colors, $sizes, $description);
+        }
+        /**
+         * Метод для изменения статуса заказа
+         * @param int $ID ID заказа
+         * @param int $Status Статус заказа
+         */
+        public function ChangeOrderStatus(int $ID, int $Status)
+        {
+            return $this->OrderManager->ChangeOrderStatus($ID, $Status);
         }
     }
 ?>

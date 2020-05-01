@@ -42,6 +42,10 @@
                     <span class="material-icons">invert_colors</span>
                     <span class="text">Цвета</span>
                 </a>
+                <a href="<?=$this->Root?>/admin/orders" <?=$controller_action == 'orders' ? 'class="active"' : ''?>>
+                    <span class="material-icons">all_inbox</span>
+                    <span class="text">Заказы</span>
+                </a>
                 <a href="<?=$this->Root?>/admin/clients" <?=$controller_action == 'clients' ? 'class="active"' : ''?>>
                     <span class="material-icons">people_outline</span>
                     <span class="text">Клиенты</span>

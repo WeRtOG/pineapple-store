@@ -15,6 +15,9 @@ $(function() {
     $('form .edit').parent().find('input').change(function() {
         if($(this).attr('name') != 'name') $(this).parent().submit();
     });
+    $('form .status').change(function() {
+        $(this).parent().submit();
+    });
     $('a[href]').click(function(e) {
         if($(this).attr('target') == '_blank') return;
         $('.anix').css('transition', 'all 0.3s ease');
@@ -88,5 +91,11 @@ $(function() {
             $(this).detach();
         }
         
+    });
+    $('.orders .order').click(function(e) {
+        if($(e.target).hasClass('status')) {
+            return;
+        }
+        $(this).parent().toggleClass('toggled');
     });
 });

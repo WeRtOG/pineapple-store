@@ -22,7 +22,7 @@
          * @param int $ParentID ID родительской категории
          * @return bool Результат операции
          */
-        public function CreateCategory(string $Name, int $ParentID = 0) : bool {
+        public function CreateCategory(string $Name, int $ParentID = -1) : bool {
             if($ParentID == 0) {
                 $this->DB->call_procedure('addCategory', [$Name]);
             } else {
@@ -429,6 +429,25 @@
             $delete = [];
 
             $result = $this->DB->call_procedure('getCategories', [], true);
+            
+            if($result != null) {
+                foreach($result as $item) {
+                    $categories[] = new Category($item);
+                }
+            }
+
+            return $categories;
+        }
+         /**
+         * Метод для получения списка подкатегорий (без группировки)
+         * @param int $ID ID родительской категории
+         * @return array Список подкатегорий
+         */
+        public function GetSubCategories(int $ID) : array {
+            $categories = [];
+            $delete = [];
+
+            $result = $this->DB->call_procedure('getSubCategories', [$ID], true);
             
             if($result != null) {
                 foreach($result as $item) {

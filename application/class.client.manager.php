@@ -32,7 +32,7 @@
          * @return Client Клиент
          */
         public function GetClientByID(int $id) : Client {
-            $data = $this->DB->call_procedure('getClientByID', [$Token]);
+            $data = $this->DB->call_procedure('getClientByID', [$id]);
             $client = new Client($data);
             return $client;
         }
