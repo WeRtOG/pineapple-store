@@ -11,7 +11,7 @@
         <h1 class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Сезонное предложение</h1>
         <div class="seasonal-offer anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">
             <?php foreach($data['SeasonalOfferItems'] as $item) { ?>
-            <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>">
+            <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>" class="skip-anix">
                 <article class="item-card">
                     <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                     <h2><?=$item->Title?></h2>
@@ -25,14 +25,6 @@
                         </span>
                     </h4>
                     <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
-                    <button data-id="<?=$item->ID?>" class="addtocart<?=$item->InCart ? ' already' : ''?>">
-                        <p>
-                            <span class="icon material-icons">
-                                <?=$item->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
-                            </span>
-                            <span class="text"><?=$item->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
-                        </p>
-                    </button>
                 </article>
             </a>
             <?php } ?>

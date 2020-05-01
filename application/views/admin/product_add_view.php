@@ -35,7 +35,7 @@
                 <?php } ?>
             </select>
             <textarea placeholder="Описание" name="description"></textarea>
-            <input type="submit" value="Сохранить изменения">
+            <input type="submit" value="Создать товар">
         </div>
     </div>
 </div>

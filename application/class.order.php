@@ -1,6 +1,7 @@
 <?php
     namespace OrderManager;
 
+    require_once 'class.order.item.php';
     require_once 'class.order.manager.php';
     require_once 'class.order.status.php';
 
@@ -13,8 +14,10 @@
         public int $ID;
         public Client $Client;
         public Status $Status;
-        public DateTime $Date;
-        public double $TotalPrice;
+        public \DateTime $Date;
+        public string $Warehouse;
+        public float $TotalPrice;
+        public string $CityName;
 
         /**
          * Конструктор объекта заказа

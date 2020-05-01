@@ -9,13 +9,14 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $auth_helper;
+            global $session_client, $clientMgr, $auth_helper, $orderMgr;
 
             $this->View = new View();
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
             $this->AuthHelper = $auth_helper;
             $this->Root = Route::GetRoot();
+            $this->OrderManager = $orderMgr;
 
             if(!$this->SessionClient->IsAuthorized) Route::Navigate('auth/login');
         }
@@ -25,7 +26,8 @@
         public function action_index()
         {
             $this->View->Generate('cabinet_view.php', 'Личный кабинет', 'template_view.php', [
-                'Client' => $this->SessionClient->Client
+                'Client' => $this->SessionClient->Client,
+                'Orders' => $this->OrderManager->GetClientOrders($this->SessionClient->Client)
             ]);
         }
         /**

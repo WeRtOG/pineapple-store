@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title><?=$page_title?> | Pineapple Shoes</title>
-		<link rel="stylesheet" href="/cdn/lib/picZoomer/jquery.picZoomer.css?v=1">
+		<link rel="stylesheet" href="/cdn/lib/picZoomer/jquery.picZoomer.css?v=0">
 		<?php
 			global $session_client;
 

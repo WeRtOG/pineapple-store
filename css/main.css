@@ -277,7 +277,7 @@ article.item-card {
 article.item-card .image {
     width: 280px;
     height: 230px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     margin: auto;
@@ -394,6 +394,7 @@ article.item-card button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
 }
 .auth-form-wrapper .auth-form {
     width: 400px;
@@ -466,8 +467,11 @@ form input[type=submit]:hover {
     box-sizing: border-box;
 }
 .cabinet .sidebar {
-    width: 300px;
+    min-width: 300px;
     text-align: center;
+    position: sticky;
+    top: 80px;
+    height: fit-content;
 }
 .cabinet .sidebar .user-info {
     text-align: center;
@@ -519,6 +523,7 @@ form input[type=submit]:hover {
 }
 .cabinet .sidebar .user-info .avatar.default {
     background-size: 32px;
+    background-image: url(../images/client.svg) !important;
 }
 .cabinet .sidebar .actions h3 {
     margin-top: 5px;
@@ -545,6 +550,92 @@ form input[type=submit]:hover {
 }
 .cabinet .sidebar .actions a span.material-icons {
     margin-left: 5px;
+}
+.cabinet .content {
+    width: 100%;
+}
+.cabinet .content .orders {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.cabinet .content .orders .order, .cabinet .content .orders .order-items {
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    color: black;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+.cabinet .content .orders .order-items {
+    display: block;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    padding: 0px;
+}
+.cabinet .content .orders .order-wrapper.toggled .order-items {
+    opacity: 1;
+    max-height: fit-content;
+    padding: 20px;
+}
+.cabinet .content .orders .order-items .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.cabinet .content .orders .order .image, .cabinet .content .orders .order-items .image {
+    min-width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+.cabinet .content .orders .order .info {
+    width: 100%;
+}
+.cabinet .content .orders .order button {
+    min-width: 64px;
+    height: 64px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+.cabinet .content .orders .order button span {
+    transition: all 0.3s ease;
+}
+.cabinet .content .orders .order {
+    cursor: pointer;
+}
+.cabinet .content .orders .order:hover button {
+    background: rgba(0,0,0,0.1);
+}
+.cabinet .content .orders .order-wrapper.toggled .order button span {
+    transform: rotate(180deg)
+}
+.cabinet .content .orders .order button span {
+    font-size: 48px;
+}
+.cabinet .content .orders .order h1, .cabinet .content .orders .order-items h1 {
+    font-size: 32px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+.cabinet .content .orders .order h2, .cabinet .content .orders .order-items h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 400;
 }
 .modal-wrapper {
     position: fixed;
@@ -787,8 +878,9 @@ form input[type=submit]:hover {
     position: relative;
     transition: all 0.3s ease;
     height: 100%;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
 }
 .picZoomer .rt:hover {
     opacity: 0 !important;
@@ -805,7 +897,8 @@ form input[type=submit]:hover {
     border-radius: 8px;
     overflow: hidden;
     opacity: .9;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
 }
 .piclist .pic:hover {
@@ -920,7 +1013,7 @@ form input[type=submit]:hover {
     height: 100px;
     width: 100px;
     min-width: 100px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 5px;
@@ -995,6 +1088,60 @@ form input[type=submit]:hover {
 }
 .cart-page .cart-item .remove button:hover {
     background: #222 !important;
+}
+.order-page-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 20px;
+    padding-top: 100px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.order-page-wrapper .order-page {
+    width: 500px;
+    background: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 50px;
+    color: black;
+    text-align: center;
+}
+.order-page-wrapper .order-page .big-icon {
+    font-size: 100px;
+    display: block;
+}
+.order-page-wrapper .order-page h1 {
+    text-align: center;
+    color: black;
+    font-size: 36px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.order-page-wrapper .order-page h3 {
+    margin-top: 40px;
+}
+.order-page-wrapper .order-page select, .order-page-wrapper .order-page input {
+    padding: 20px;
+    display: block;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px #00000019;
+}
+.order-page-wrapper .order-page input[type=submit] {
+    background: var(--ui-gradient);
+    color: white;
+    cursor: pointer;
+}
+.order-page-wrapper .order-page input[type=submit]:disabled {
+    opacity: .7;
+    cursor: not-allowed;
 }
 footer {
     text-align: center;

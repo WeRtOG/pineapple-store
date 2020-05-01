@@ -1,18 +1,18 @@
 <?php
-    namespace ClientCart;
+    namespace OrderManager;
 
     use ProductManager\Product as Product;
 
     /**
-     * Класс элемента корзины
+     * Класс элемента заказа
      */
-    class CartItem {
+    class OrderItem {
         public Product $Product;
         public string $Amount;
         public ?string $Size;
         public ?string $ColorName;
         /**
-         * Конструктор элемента корзины
+         * Конструктор элемента заказа
          * @param array Массив данных
          */
         public function __construct(array $data) {

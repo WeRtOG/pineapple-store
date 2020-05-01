@@ -39,6 +39,7 @@
 	require_once 'class.db.php';
 	require_once 'class.product.php';
 	require_once 'class.cart.php';
+	require_once 'class.cities.manager.php';
 	require_once 'class.order.php';
 
 	$db = new DatabaseManager\Database('localhost', 'admin', '4TE5CF67C5', 'pineapple_shoes'); // Подключаемся к БД
@@ -50,6 +51,8 @@
 	$productMgr = new ProductManager\ProductManager($db); // Инициализируем менеджер товаров
 	$cart = new ClientCart\Cart($session_client->Client, $db, $productMgr); // Инициализируем корзину
 	$npAPI = new NovaPoshta\API('2dcaea4188edd931ab6a363dfd9b4809'); // Инициализируем API Новой Почты
+	$citiesMgr = new CitiesManager\CitiesManager($db); // Инициализируем менеджер городов
+	$orderMgr = new OrderManager\OrderManager($db, $productMgr); // Инициализируем менеджер заказов
 
 
 	/* Если снова пропадут товары

@@ -26,7 +26,7 @@
                     <span class="material-icons">category</span>
                     <span class="text">Категории</span>
                 </a>
-                <a href="<?=$this->Root?>/admin/products" <?=$controller_action == 'products' || $controller_action == 'editproduct' ? 'class="active"' : ''?>>
+                <a href="<?=$this->Root?>/admin/products" <?=$controller_action == 'products' || $controller_action == 'editproduct' || $controller_action == 'addproduct' ? 'class="active"' : ''?>>
                     <span class="material-icons">storefront</span>
                     <span class="text">Товары</span>
                 </a>

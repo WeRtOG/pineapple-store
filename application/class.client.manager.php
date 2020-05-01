@@ -27,6 +27,16 @@
             return $client;
         }
         /**
+         * Метод для получения клиента по его ID
+         * @param int $id ID клиента
+         * @return Client Клиент
+         */
+        public function GetClientByID(int $id) : Client {
+            $data = $this->DB->call_procedure('getClientByID', [$Token]);
+            $client = new Client($data);
+            return $client;
+        }
+        /**
          * Метод для регистрации клиента
          * @param string $Phone Телефон
          * @param string $Name Имя

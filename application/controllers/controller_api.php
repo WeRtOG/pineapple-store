@@ -9,7 +9,7 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $productMgr, $auth_helper, $cart, $npAPI, $adminAuth;
+            global $session_client, $clientMgr, $productMgr, $auth_helper, $cart, $npAPI, $adminAuth, $citiesMgr;
 
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
@@ -19,6 +19,7 @@
             $this->Root = Route::GetRoot();
             $this->Cart = $cart;
             $this->NPAPI = $npAPI;
+            $this->CitiesManager = $citiesMgr;
         }
         /**
          * Экшн коренной страницы
@@ -283,12 +284,39 @@
                 'result' => $result
             ]);
         }
+        
         /**
          * Экшн получения списка отделений в отдельном городе
          */
         public function action_GetCityWarehouses(string $city = '') 
         {
             $result = $this->NPAPI->GetCityWarehouses(urldecode($city));
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'result' => $result
+            ]);
+        }
+        /**
+         * Экшн получения списка регионов
+         */
+        public function action_GetRegionList()
+        {
+            $result = $this->CitiesManager->GetRegionList();
+            API::Answer([
+                'ok' => true,
+                'code' => 200,
+                'result' => $result
+            ]);
+        }
+        /**
+         * Экшн получения списка городов региона
+         * @param string $region Регион
+         */
+        public function action_GetRegionCities(string $region = '')
+        {
+            $region = urldecode($region);
+            $result = $this->CitiesManager->GetRegionCities($region);
             API::Answer([
                 'ok' => true,
                 'code' => 200,

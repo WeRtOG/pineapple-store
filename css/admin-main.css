@@ -179,6 +179,7 @@ html {
     transition: all 0.3s ease;
     position: relative;
     margin-right: 20px;
+    border-radius: 100%;
 }
 .cards .card .avatar.default {
     background-size: 24px;

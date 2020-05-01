@@ -1,10 +1,6 @@
 const api = new API();
 
 $(async function() {
-    await UpdateCart();
-    setInterval(async function() {
-        await UpdateCart();
-    }, 2000);
     $('.catalog .carousel').slick({
         centerMode: true,
         slidesToShow: 3,
@@ -35,4 +31,16 @@ $(async function() {
             zoomerPosition: {top: '0', left: '0px'}
         });
     }
+    if($('.order-page #region').attr('id') == 'region') {
+        const result = await api.GetRegionList();
+        if(result.ok) {
+            result.result.forEach(element => {
+                $('.order-page #region').append('<option value="' + element + '">' + element + '</option>');
+            });
+        }
+    }
+    await UpdateCart();
+    setInterval(async function() {
+        await UpdateCart();
+    }, 2000);
 });

@@ -5,6 +5,8 @@
         <div class="photo" style="background-image: url(<?=$item->Product->Images->ImagesList[0]->Path?>)"></div>
         <div class="info">
             <h1><?=$item->Product->Title?></h1>
+            <h2><span>Выбранный цвет:</span>&nbsp;<span><?=$item->ColorName != null ? $item->ColorName : 'По-умолчанию' ?></span></h2>
+            <h2><span>Выбранный размер:</span>&nbsp;<span><?=$item->Size != null ? $item->Size : 'По-умолчанию' ?></span></h2>
             <h2><span>Стоимость:</span>&nbsp;<span><?=number_format($item->Product->Price, 2, ',', ' ')?> ₴</span></h2>
             <h2><span>Количество:</span>&nbsp;<button class="decrease" data-id="<?=$item->Product->ID?>">-</button><span class="amount"><?=$item->Amount?></span><button class="increase" data-id="<?=$item->Product->ID?>">+</button></h2>
         </div>
@@ -24,7 +26,9 @@
         <div class="summ">
             Сумма: <?=number_format($data['TotalPrice'], 2, ',', ' ')?> ₴
         </div>
-        <button>Оформить заказ</button>
+        <a href="<?=$this->Root?>/cart/order">
+            <button>Оформить заказ</button>
+        </a>
     </div>
     <?php } ?>
 </section>

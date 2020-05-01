@@ -33,7 +33,9 @@
                 foreach($result as $item) {
                     $newItem = new CartItem([
                         'Product' => $this->ProductManager->GetProduct($item['IDProduct']),
-                        'Amount' => $item['Amount']
+                        'Amount' => $item['Amount'],
+                        'Size' => $item['Size'],
+                        'ColorName' => $item['ColorName']
                     ]);
                     $this->TotalPrice += $newItem->Amount * $newItem->Product->Price;
                     $this->Items[] = $newItem;

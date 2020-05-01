@@ -69,4 +69,24 @@ class API {
     async GetCartTotalPrice() {
         return await this.MakeRequest(http_root + '/api/GetCartTotalPrice');
     }
+    /**
+     * Метод для получения списка регионов
+     */
+    async GetRegionList() {
+        return await this.MakeRequest(http_root + '/api/GetRegionList');
+    }
+    /**
+     * Метод для получения списка городов региона
+     * @param {string} region 
+     */
+    async GetRegionCities(region) {
+        return await this.MakeRequest(http_root + '/api/GetRegionCities/' + region);
+    }
+    /**
+     * Метод для получения отделений Новой Почты для города
+     * @param {string} city 
+     */
+    async GetCityWarehouses(city) {
+        return await this.MakeRequest(http_root + '/api/GetCityWarehouses/' + city);
+    }
 }

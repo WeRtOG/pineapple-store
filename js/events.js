@@ -1,6 +1,7 @@
 $(function() {
     $('a[href]').click(function(e) {
-        if($(this).find('button').hasClass('addtocart')) return;
+        if($(this).attr('target') == '_blank') return;
+        if($(this).find('button').hasClass('addtocart') || $(this).hasClass('skip-anix')) return;
         $('a[href]').removeClass('active');
         $(this).addClass('active');
         $('.anix').css('transition', 'all 0.3s ease');
@@ -111,5 +112,74 @@ $(function() {
     });
     $('.collapsible .header, .collapsible .sub.hidden .header').click(function() {
         $(this).parent().toggleClass('hidden');
+    });
+    $('.order-page #region').change(async function() {
+        const region = $(this).val();
+        $('.order-page #city option').each(function(i) {
+            if(i != 0) $(this).detach();
+        });
+        $('.order-page #city').append('<option disabled selected>Загрузка...</option>');
+        $('.order-page #warehouse option').each(function(i) {
+            if(i != 0) $(this).detach();
+        });
+        const result = await api.GetRegionCities(region);
+        if(result.ok) {
+            $('.order-page #city option').each(function(i) {
+                if(i != 0) $(this).detach();
+            });
+            result.result.forEach(element => {
+                $('.order-page #city').append('<option value="' + element.ID + '">' + element.Name + '</option>');
+            });
+        }
+        const city = $('.order-page #city').find('option:selected').text();
+        $('.order-page #warehouse option').each(function(i) {
+            if(i != 0) $(this).detach();
+        });
+        $('.order-page #warehouse').append('<option disabled selected>Загрузка...</option>');
+        const result2 = await api.GetCityWarehouses(city);
+        if(result2.ok) {
+            $('.order-page #warehouse option').each(function(i) {
+                if(i != 0) $(this).detach();
+            });
+            result2.result.data.forEach(element => {
+                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + element.DescriptionRu + '</option>');
+            });
+        }
+        if($('.order-page #warehouse').val() != '' && $('.order-page #warehouse').val() != null) {
+            $('.order-page [type=submit]').removeAttr('disabled');
+        } else {
+            $('.order-page [type=submit]').attr('disabled', '');
+        }
+    });
+    $('.order-page #city').change(async function() {
+        const city = $(this).find('option:selected').text();
+        $('.order-page #warehouse option').each(function(i) {
+            if(i != 0) $(this).detach();
+        });
+        $('.order-page #warehouse').append('<option disabled selected>Загрузка...</option>');
+        const result = await api.GetCityWarehouses(city);
+        if(result.ok) {
+            $('.order-page #warehouse option').each(function(i) {
+                if(i != 0) $(this).detach();
+            });
+            result.result.data.forEach(element => {
+                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + element.DescriptionRu + '</option>');
+            });
+        }
+        if($('.order-page #warehouse').val() != '' && $('.order-page #warehouse').val() != null) {
+            $('.order-page [type=submit]').removeAttr('disabled');
+        } else {
+            $('.order-page [type=submit]').attr('disabled', '');
+        }
+    });
+    $('.order-page #warehouse').change(async function() {
+        if($(this).val() != '' && $(this).val() != null) {
+            $('.order-page [type=submit]').removeAttr('disabled');
+        } else {
+            $('.order-page [type=submit]').attr('disabled', '');
+        }
+    });
+    $('.cabinet .orders .order').click(function() {
+        $(this).parent().toggleClass('toggled');
     });
 });
