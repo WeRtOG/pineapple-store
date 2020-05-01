@@ -23,6 +23,7 @@
     </section>
     <section class="content">
         <div class="orders">
+            <?php if(count($data['Orders']) > 0) { ?>
             <?php foreach($data['Orders'] as $order) { ?>
             <div class="order-wrapper" data-id="<?=$order->ID?>">
                 <div class="order">
@@ -53,6 +54,9 @@
                     <?php } ?>
                 </div>
             </div>
+            <?php } ?>
+            <?php } else { ?>
+            <h1 class="empty">Заказов пока-что нет...</h1>
             <?php } ?>
         </div>
     </section>

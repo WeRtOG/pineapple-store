@@ -559,6 +559,18 @@ form input[type=submit]:hover {
     padding: 20px;
     box-sizing: border-box;
 }
+.cabinet .content .orders h1.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 150px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
+    font-weight: 200;
+    opacity: .3;
+    user-select: none;
+}
 .cabinet .content .orders .order, .cabinet .content .orders .order-items {
     width: 100%;
     background: white;
@@ -1193,6 +1205,20 @@ button.addtocart.already {
 }
 .collapsible .header, .collapsible .sub.hidden .header {
     cursor: pointer;
+}
+.page-404 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255,255,255,.05);
+    font-size: 200px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
 }
 @media (min-device-width: 2000px){
     html{

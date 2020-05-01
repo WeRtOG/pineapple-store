@@ -15,10 +15,23 @@
 			if(!empty($routes[1])) $controller_name = $routes[1];
 
 			$this -> LoadCSS($this->Root . '/css/main.css');
+			$url = file_get_contents('../../.url');
 		?>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap&family=Roboto:wght@100;300;400;500;700;900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script>var http_root = '<?=$this->Root?>'</script>
+
+		<link rel="shortcut icon" href="<?=$this->Root?>/images/pineapple-icon.png" type="image/x-icon">
+		<!-- Google / Search Engine Tags -->
+		<meta itemprop="name" content="<?=$page_title?>">
+		<meta itemprop="description" content="Pineapple Shoes">
+		<meta itemprop="image" content="<?=$url.$this->Root?>/images/pineapple-icon.png">
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="<?=$page_title?>">
+		<meta property="og:description" content="Pineapple Shoes">
+		<meta property="og:image" content="<?=$url.$this->Root?>/images/pineapple-icon.png">
 	</head>
 	<body>
 		<header>
