@@ -22,6 +22,7 @@ $(async function() {
         variableHeight: true,
         arrows: false,
         swipeToSlide: true,
+        infinite: true,
     });
     if($('.picZoomer').hasClass('picZoomer')) {
         $('.picZoomer').picZoomer({

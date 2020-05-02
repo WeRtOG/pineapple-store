@@ -102,6 +102,9 @@
                             </ul>
                         </ul>
                     </div>
+                    <a href="<?=$this->Root?>/catalog">
+                        <button>Сбросить фильтры</button>
+                    </a>
                 </div>
             </div>
             <div class="all-items-content<?=count($data['AllItems']) == 0 ? ' no-data' : ''?>">

@@ -29,7 +29,7 @@
             <?php } ?>
         </div>
         <div class="description">
-            <p><?=$data['Product']->Description?></p>
+            <p><?=nl2br($data['Product']->Description)?></p>
         </div>
     </div>
     <div class="add-to-cart">
