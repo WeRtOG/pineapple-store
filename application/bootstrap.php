@@ -54,19 +54,5 @@
 	$citiesMgr = new CitiesManager\CitiesManager($db); // Инициализируем менеджер городов
 	$orderMgr = new OrderManager\OrderManager($db, $productMgr, $clientMgr); // Инициализируем менеджер заказов
 
-
-	/* Если снова пропадут товары
-	for($i = 0; $i < 500; $i++) {
-		$db->call_procedure('addProduct', [
-			'Товар #' . $i,
-			'Бла-бла-бла',
-			4,
-			15,
-			7,
-			2077,
-			2999.99,
-		]);
-	}*/
-
 	Route::Start(); // Запускаем маршрутизатор
 ?>
