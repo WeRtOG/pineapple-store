@@ -11,5 +11,5 @@
             </p>
         </a>
     </section>
-    <img draggable="false" src="<?=$folder_images?>/Top_nike.png" srcset="<?=$folder_images?>/Top_nike.png 1x, <?=$folder_images?>/Top_nike@2x.png 2x" class="sneaker anix" data-fx="move">
+    <img draggable="false" src="<?=$this->Root . '/images'?>/Top_nike.png" srcset="<?=$this->Root . '/images'?>/Top_nike.png 1x, <?=$this->Root . '/images'?>/Top_nike@2x.png 2x" class="sneaker anix" data-fx="move">
 </section>

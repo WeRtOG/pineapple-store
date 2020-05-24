@@ -2,7 +2,7 @@
     <div class="main-info">
         <form method="POST" class="main-info-content">
             <input type="name" placeholder="Название" name="name" value="" />
-            <input type="number" placeholder="Год" name="year" value="" />
+            <input type="hidden" value="<?=date('Y')?>" />
             <input type="number" placeholder="Цена" name="price" value="" />
             <select name="category">
                 <option value="0" disabled>Выберите категорию</option>

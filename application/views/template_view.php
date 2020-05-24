@@ -8,14 +8,13 @@
 		<?php
 			global $session_client;
 
-			$folder_images = $this->Root . '/images';
+			// Получаем имя контроллера
 			$controller_name = 'home';
 			$routes = explode('/', $this->Route);
-
 			if(!empty($routes[1])) $controller_name = $routes[1];
 
+			// Загружаем CSS
 			$this -> LoadCSS($this->Root . '/css/main.css');
-			$url = file_get_contents('../../.url');
 		?>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap&family=Roboto:wght@100;300;400;500;700;900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,17 +24,17 @@
 		<!-- Google / Search Engine Tags -->
 		<meta itemprop="name" content="<?=$page_title?>">
 		<meta itemprop="description" content="Pineapple Shoes">
-		<meta itemprop="image" content="<?=$url.$this->Root?>/images/pineapple-icon.png">
+		<meta itemprop="image" content="<?='https://uksoftevolution.com'.$this->Root?>/images/pineapple-icon.png">
 
 		<!-- Facebook Meta Tags -->
 		<meta property="og:type" content="website">
 		<meta property="og:title" content="<?=$page_title?>">
 		<meta property="og:description" content="Pineapple Shoes">
-		<meta property="og:image" content="<?=$url.$this->Root?>/images/pineapple-icon.png">
+		<meta property="og:image" content="<?='https://uksoftevolution.com'.$this->Root?>/images/pineapple-icon.png">
 	</head>
 	<body>
 		<header>
-			<img src="<?=$folder_images?>/pineapple.svg"/>
+			<img src="<?=$this->Root . '/images'?>/pineapple.svg"/>
 			<div class="menu">
 				<a href="<?=$this->Root?>/home"<?=$controller_name == 'home' ? 'class="active"' : ''?>>Главная</a>
 				<a href="<?=$this->Root?>/catalog"<?=$controller_name == 'catalog' ? 'class="active"' : ''?>>Товары</a>
@@ -55,10 +54,10 @@
 		</section>
 		<footer class="anix">
 			<div class="social-links">
-				<a title="Наш Telegram" href="https://telegram.org" target="_blank">
+				<a title="Наш Telegram" href="https://t.me/DmitriyPsh" target="_blank">
 					<img src="<?=$this->Root?>/images/social-telegram.svg?v=1"/>
 				</a>
-				<a title="Наш Instagram" href="https://instagram.com" target="_blank">
+				<a title="Наш Instagram" href="https://instagram.com/pineapple.krossФ" target="_blank">
 					<img src="<?=$this->Root?>/images/social-instagram.svg?v=1"/>
 				</a>
 				<p class="copyright">

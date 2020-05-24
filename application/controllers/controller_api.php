@@ -323,6 +323,22 @@
                 'result' => $result
             ]);
         }
+        public function action_ClearUnusedCities() {
+            /*set_time_limit(0);
+            $cities = $this->CitiesManager->GetAllCities();
+            foreach($cities as $city) {
+                $result = $this->NPAPI->GetCityWarehouses($city['Name']);
+                if(empty($result->data)) {
+                    $this->CitiesManager->DeleteCity($city['ID']);
+                    echo "Город " . $city['Name'] . " удалён<br>";
+                }
+            }*/
+            API::Answer([
+                'ok' => false,
+                'code' => 200,
+                'error' => 'Not allowed.'
+            ]);
+        }
         /**
          * Экшн 400 ошибки
          */

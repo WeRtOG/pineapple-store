@@ -18,8 +18,9 @@
                             </select>
                         </form>
                     </h2>
-                    <h2><b>Имя клиента:&nbsp;</b><?=$order->Client->Name?></h2>
+                    <h2><b>ФИО клиента:&nbsp;</b><?=$order->Client->Name?></h2>
                     <h2><b>Телефон клиента:&nbsp;</b><?=$order->Client->Phone?></h2>
+                    <h2><b>Способ оплаты:&nbsp;</b><?=$order->PaymentType?></h2>
                     <h2><b>Общая стоимость заказа:&nbsp;</b><?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
                     <h2><b>Доставка:&nbsp;</b><?=$order->CityName?>, отделение Новой Почты №<?=$order->Warehouse?></h2>
                 </div>

@@ -16,15 +16,15 @@
                     <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                     <h2><?=$item->Title?></h2>
                     <h4><?=$item->Category->Name?></h4>
-                    <h4>
-                        <span>
-                            Подробнее
-                        </span>
-                        <span class="material-icons">
-                            keyboard_arrow_right
-                        </span>
-                    </h4>
                     <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
+                    <button>
+                        <p>
+                            <span class="icon material-icons">
+                                double_arrow
+                            </span>
+                            <span class="text">Подробнее</span>
+                        </p>
+                    </button>
                 </article>
             </a>
             <?php } ?>
@@ -114,21 +114,13 @@
                         <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                         <h2><?=$item->Title?></h2>
                         <h4><?=$item->Category->Name?></h4>
-                        <h4>
-                            <span>
-                                Подробнее
-                            </span>
-                            <span class="material-icons">
-                                keyboard_arrow_right
-                            </span>
-                        </h4>
                         <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
-                        <button data-id="<?=$item->ID?>" class="addtocart<?=$item->InCart ? ' already' : ''?>">
+                        <button>
                             <p>
                                 <span class="icon material-icons">
-                                    <?=$item->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
+                                    double_arrow
                                 </span>
-                                <span class="text"><?=$item->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
+                                <span class="text">Подробнее</span>
                             </p>
                         </button>
                     </article>
