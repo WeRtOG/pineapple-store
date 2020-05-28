@@ -25,7 +25,7 @@
         <div class="color-select">
             <?php foreach($data['Product']->Colors as $i => $color) { ?>
             <input type="radio" value="<?=$color->ID?>" name="ColorSelect" id="ColorSelect-<?=$i?>"<?=$i == 0 ? ' checked' : ''?>>
-            <label for="ColorSelect-<?=$i?>" style="background-color: #<?=$color->HEX?>" title="<?=$color->Name?>"></label>
+            <label data-translate="title" for="ColorSelect-<?=$i?>" style="background-color: #<?=$color->HEX?>" title="<?=$color->Name?>"></label>
             <?php } ?>
         </div>
         <div class="description" data-translate="content">
