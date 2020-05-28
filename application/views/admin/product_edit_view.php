@@ -20,15 +20,9 @@
     </div>
     <div class="main-info">
         <form method="POST" class="main-info-content">
-<<<<<<< HEAD
             <input data-translate="placeholder" type="name" placeholder="Название" name="name" value="<?=$data['Product']->Name?>" />
             <input type="hidden" value="<?=$data['Product']->Year?>" />
             <input data-translate="placeholder" type="number" placeholder="Цена" name="price" value="<?=$data['Product']->Price?>" />
-=======
-            <input type="name" placeholder="Название" name="name" value="<?=$data['Product']->Name?>" />
-            <input type="hidden" value="<?=$data['Product']->Year?>" />
-            <input type="number" placeholder="Цена" name="price" value="<?=$data['Product']->Price?>" />
->>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
             <select name="category">
                 <option data-translate="content" value="0" disabled>Выберите категорию</option>
                 <?php foreach($data['Categories'] as $categories) { ?>
