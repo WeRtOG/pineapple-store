@@ -17,11 +17,19 @@
                             </select>
                         </form>
                     </h2>
+<<<<<<< HEAD
                     <h2><b data-translate="content">ФИО клиента:</b>&nbsp;<?=$order->Client->Name?></h2>
                     <h2><b data-translate="content">Телефон клиента:</b>&nbsp;<?=$order->Client->Phone?></h2>
                     <h2><b data-translate="content">Способ оплаты:</b>&nbsp;<?=$order->PaymentType?></h2>
                     <h2><b data-translate="content">Общая стоимость заказа:</b>&nbsp;<?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
                     <h2><b data-translate="content">Доставка:</b>&nbsp;<?=$order->CityName?>,&nbsp;<span data-translate="content">отделение Новой Почты</span>&nbsp;№<?=$order->Warehouse?></h2>
+=======
+                    <h2><b>ФИО клиента:&nbsp;</b><?=$order->Client->Name?></h2>
+                    <h2><b>Телефон клиента:&nbsp;</b><?=$order->Client->Phone?></h2>
+                    <h2><b>Способ оплаты:&nbsp;</b><?=$order->PaymentType?></h2>
+                    <h2><b>Общая стоимость заказа:&nbsp;</b><?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
+                    <h2><b>Доставка:&nbsp;</b><?=$order->CityName?>, отделение Новой Почты №<?=$order->Warehouse?></h2>
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
                 </div>
                 <button class="toggle">
                     <span class="material-icons">

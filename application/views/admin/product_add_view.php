@@ -1,9 +1,15 @@
 <div class="product-edit">
     <div class="main-info">
         <form method="POST" class="main-info-content">
+<<<<<<< HEAD
             <input data-translate="placeholder" type="name" placeholder="Название" name="name" value="" />
             <input type="hidden" value="<?=date('Y')?>" />
             <input  data-translate="placeholder" type="number" placeholder="Цена" name="price" value="" />
+=======
+            <input type="name" placeholder="Название" name="name" value="" />
+            <input type="hidden" value="<?=date('Y')?>" />
+            <input type="number" placeholder="Цена" name="price" value="" />
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
             <select name="category">
                 <option data-translate="content" value="0" disabled>Выберите категорию</option>
                 <?php foreach($data['Categories'] as $categories) { ?>

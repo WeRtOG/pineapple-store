@@ -15,14 +15,22 @@
                 <article class="item-card">
                     <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                     <h2><?=$item->Title?></h2>
+<<<<<<< HEAD
                     <h4 data-translate="content"><?=$item->Category->Name?></h4>
+=======
+                    <h4><?=$item->Category->Name?></h4>
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
                     <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
                     <button>
                         <p>
                             <span class="icon material-icons">
                                 double_arrow
                             </span>
+<<<<<<< HEAD
                             <span data-translate="content" class="text">Подробнее</span>
+=======
+                            <span class="text">Подробнее</span>
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
                         </p>
                     </button>
                 </article>
@@ -113,14 +121,22 @@
                     <article class="item-card">
                         <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                         <h2><?=$item->Title?></h2>
+<<<<<<< HEAD
                         <h4 data-translate="content"><?=$item->Category->Name?></h4>
+=======
+                        <h4><?=$item->Category->Name?></h4>
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
                         <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
                         <button>
                             <p>
                                 <span class="icon material-icons">
                                     double_arrow
                                 </span>
+<<<<<<< HEAD
                                 <span class="text" data-translate="content">Подробнее</span>
+=======
+                                <span class="text">Подробнее</span>
+>>>>>>> 6169aaac5d1801f27f10644b5a017c941a367f9c
                             </p>
                         </button>
                     </article>
