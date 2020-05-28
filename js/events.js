@@ -37,7 +37,8 @@ $(function() {
                     location.reload();
                     return;
                 }
-                alert("Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF");
+                var message = lang == 'ua' ? "Помилка завантаження!\nЗображення має бути у форматі JPG, JPEG, PNG или GIF" : "Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF";
+                alert(message);
             }
         }
     });
@@ -61,14 +62,14 @@ $(function() {
             const response = await api.AddItemToCart(id, sizeID, colorID);
             if(response.ok) {
                 $(this).addClass('already');
-                $(this).find('.text').text('Убрать из корзины');
+                $(this).find('.text').text(lang == 'ua' ? 'Прибрати з кошика' : 'Убрать из корзины');
                 $(this).find('.icon').text('remove_shopping_cart');
             }
         } else {
             const response = await api.RemoveItemFromCart(id);
             if(response.ok) {
                 $(this).removeClass('already');
-                $(this).find('.text').text('В корзину');
+                $(this).find('.text').text(lang == 'ua' ? 'В кошик' : 'В корзину');
                 $(this).find('.icon').text('add_shopping_cart');
             }
         }
@@ -77,7 +78,8 @@ $(function() {
         $(this).parent().parent().detach();
         const response = await api.GetCartTotalPrice();
         if(response.ok) {
-            $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+            var apnd = lang == 'ua' ? 'Сума: ' : 'Сумма: ';
+            $('.cart-page .bottom .summ').text(apnd + response.totalPriceString);
         }
         
         if($('.cart-page .cart-item').length == 0) {
@@ -94,7 +96,8 @@ $(function() {
             await api.UpdateAmount(value, id);
             const response = await api.GetCartTotalPrice();
             if(response.ok) {
-                $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+                var apnd = lang == 'ua' ? 'Сума: ' : 'Сумма: ';
+                $('.cart-page .bottom .summ').text(apnd + response.totalPriceString);
             }
         }, 0);
     });
@@ -106,7 +109,8 @@ $(function() {
             await api.UpdateAmount(value, id);
             const response = await api.GetCartTotalPrice();
             if(response.ok) {
-                $('.cart-page .bottom .summ').text('Сумма: ' + response.totalPriceString);
+                var apnd = lang == 'ua' ? 'Сума: ' : 'Сумма: ';
+                $('.cart-page .bottom .summ').text(apnd + response.totalPriceString);
             }
         }, 0);
     });
@@ -142,7 +146,7 @@ $(function() {
                 if(i != 0) $(this).detach();
             });
             result2.result.data.forEach(element => {
-                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + element.DescriptionRu + '</option>');
+                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + (lang == 'ua' ? element.Description : element.DescriptionRu) + '</option>');
             });
         }
         if($('.order-page #warehouse').val() != '' && $('.order-page #warehouse').val() != null) {
@@ -163,7 +167,7 @@ $(function() {
                 if(i != 0) $(this).detach();
             });
             result.result.data.forEach(element => {
-                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + element.DescriptionRu + '</option>');
+                $('.order-page #warehouse').append('<option value="' + element.Number + '">' + (lang == 'ua' ? element.Description : element.DescriptionRu) + '</option>');
             });
         }
         if($('.order-page #warehouse').val() != '' && $('.order-page #warehouse').val() != null) {

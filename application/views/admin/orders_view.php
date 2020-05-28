@@ -4,24 +4,24 @@
             <div class="card order">
                 <div class="image" style="background-image: url(<?=$order->Items[0]->Product->Images->ImagesList[0]->Path?>)"></div>
                 <div class="info">
-                    <h1>Заказ #<?=$order->ID?></h1>
+                    <h1><span data-translate="content">Заказ</span> #<?=$order->ID?></h1>
                     <h2>
-                        <b>Статус заказа:&nbsp;</b>
+                        <b data-translate="content">Статус заказа:</b>&nbsp;
                         <form action="<?=$this->Root?>/admin/ChangeOrderStatus" method="POST">
                             <input type="hidden" name="id" value="<?=$order->ID?>" />
                             <input type="hidden" name="page" value="<?=$data['Page']?>"/>
                             <select class="status" name="status">
                                 <?php foreach($data['Statuses'] as $status) { ?>
-                                <?php print_r($status); ?>
-                                <option value="<?=$status->ID?>"<?=$order->Status->ID == $status->ID ? ' selected' : ''?>><?=$status->Name?></option>
+                                <option data-translate="content" value="<?=$status->ID?>"<?=$order->Status->ID == $status->ID ? ' selected' : ''?>><?=$status->Name?></option>
                                 <?php } ?>
                             </select>
                         </form>
                     </h2>
-                    <h2><b>Имя клиента:&nbsp;</b><?=$order->Client->Name?></h2>
-                    <h2><b>Телефон клиента:&nbsp;</b><?=$order->Client->Phone?></h2>
-                    <h2><b>Общая стоимость заказа:&nbsp;</b><?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
-                    <h2><b>Доставка:&nbsp;</b><?=$order->CityName?>, отделение Новой Почты №<?=$order->Warehouse?></h2>
+                    <h2><b data-translate="content">ФИО клиента:</b>&nbsp;<?=$order->Client->Name?></h2>
+                    <h2><b data-translate="content">Телефон клиента:</b>&nbsp;<?=$order->Client->Phone?></h2>
+                    <h2><b data-translate="content">Способ оплаты:</b>&nbsp;<?=$order->PaymentType?></h2>
+                    <h2><b data-translate="content">Общая стоимость заказа:</b>&nbsp;<?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
+                    <h2><b data-translate="content">Доставка:</b>&nbsp;<?=$order->CityName?>,&nbsp;<span data-translate="content">отделение Новой Почты</span>&nbsp;№<?=$order->Warehouse?></h2>
                 </div>
                 <button class="toggle">
                     <span class="material-icons">
@@ -35,9 +35,9 @@
                     <div class="image" style="background-image: url(<?=$item->Product->Images->ImagesList[0]->Path?>)"></div>
                     <div class="info">
                         <h1><a href="<?=$this->Root?>/catalog/product/<?=$item->Product->ID?>" target="_blank"><?=$item->Product->Title?></a></h1>
-                        <h2><b>Выбранный цвет:&nbsp;</b><?=$item->ColorName != null ? $item->ColorName : 'По-умолчанию' ?></h2>
-                        <h2><b>Выбранный размер:&nbsp;</b><?=$item->Size != null ? $item->Size : 'По-умолчанию' ?></h2>
-                        <h2><b>Стоимость:&nbsp;</b><?=$item->Amount?>&nbsp;<b>x</b>&nbsp;<?=number_format($item->Product->Price, 2, ',', ' ')?>&nbsp;<b>=</b>&nbsp;<?=number_format($item->Product->Price * $item->Amount, 2, ',', ' ')?> ₴</h2>
+                        <h2><b data-translate="content">Выбранный цвет:</b>&nbsp;<?=$item->ColorName != null ? $item->ColorName : 'По-умолчанию' ?></h2>
+                        <h2><b data-translate="content">Выбранный размер:</b>&nbsp;<?=$item->Size != null ? $item->Size : 'По-умолчанию' ?></h2>
+                        <h2><b data-translate="content">Стоимость:</b>&nbsp;<?=$item->Amount?>&nbsp;<b>x</b>&nbsp;<?=number_format($item->Product->Price, 2, ',', ' ')?>&nbsp;<b>=</b>&nbsp;<?=number_format($item->Product->Price * $item->Amount, 2, ',', ' ')?> ₴</h2>
                     </div>
                 </div>
                 <?php } ?>

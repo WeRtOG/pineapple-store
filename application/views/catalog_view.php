@@ -2,34 +2,34 @@
     <section class="catalog">
         <?php if($data['Page'] == 1 && !$data['Filtered']) {
         ?>
-        <h1 class="anix" data-hold="0" data-continue="true" data-fx="move" data-direction="down">Топ продаж</h1>
+        <h1 data-translate="content" class="anix" data-hold="0" data-continue="true" data-fx="move" data-direction="down">Топ продаж</h1>
         <div class="carousel anix" data-fx="move" data-direction="down" data-continue="true">
             <?php foreach($data['CarouselItems'] as $item) { ?>
             <div class="card" data-id="<?=$item->ID?>" style="background-image: url(<?=$item->Images->HorizontalImage->Path?>)"><a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>"><h3><?=$item->Title?></h3></a></div>
             <?php } ?>
         </div>
-        <h1 class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Сезонное предложение</h1>
+        <h1 data-translate="content" class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Сезонное предложение</h1>
         <div class="seasonal-offer anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">
             <?php foreach($data['SeasonalOfferItems'] as $item) { ?>
             <a href="<?=$this->Root?>/catalog/product/<?=$item->ID?>" class="skip-anix">
                 <article class="item-card">
                     <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                     <h2><?=$item->Title?></h2>
-                    <h4><?=$item->Category->Name?></h4>
-                    <h4>
-                        <span>
-                            Подробнее
-                        </span>
-                        <span class="material-icons">
-                            keyboard_arrow_right
-                        </span>
-                    </h4>
+                    <h4 data-translate="content"><?=$item->Category->Name?></h4>
                     <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
+                    <button>
+                        <p>
+                            <span class="icon material-icons">
+                                double_arrow
+                            </span>
+                            <span data-translate="content" class="text">Подробнее</span>
+                        </p>
+                    </button>
                 </article>
             </a>
             <?php } ?>
         </div>
-        <h1 class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Все товары</h1>
+        <h1 data-translate="content" class="anix" data-fx="move" data-direction="down" data-continue="true" data-hold="100">Все товары</h1>
         <?php
         } else {
         ?>
@@ -40,12 +40,12 @@
             <div class="all-items-sidebar">
                 <div class="filters">
                     <h2>
-                        <span class="text">Фильтр</span>
+                        <span data-translate="content" class="text">Фильтр</span>
                         <img src="<?=$this->Root?>/images/filter.svg"/>
                     </h2>
                     <div class="filters-list">
                         <ul class="collapsible<?=$data['Filter'] != 'brand' ? ' hidden' : ''?>">
-                            <li class="header">
+                            <li data-translate="content" class="header">
                                 По брендам
                             </li>
                             <ul class="content">
@@ -57,14 +57,14 @@
                             </ul>
                         </ul>
                         <ul class="collapsible<?=$data['Filter'] != 'category' ? ' hidden' : ''?>">
-                            <li class="header">
+                            <li data-translate="content" class="header">
                                 По категориям
                             </li>
                             <ul class="content">
                                 <?php foreach($data['Categories'] as $category) { ?>
                                 <?php if(count($category->SubCategories) == 0) { ?>
                                 <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$category->ID?>">
-                                    <li><?=$category->Name?></li>
+                                    <li data-translate="content"><?=$category->Name?></li>
                                 </a>
                                 <?php } else { ?>
                                 <?php
@@ -74,14 +74,14 @@
                                             $hide = false;
                                 ?>
                                 <li class="sub<?=$hide ? ' hidden' : ''?>">
-                                    <div class="header"><?=$category->Name?></div>
+                                    <div class="header" data-translate="content"><?=$category->Name?></div>
                                     <ul class="content">
                                         <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$category->ID?>">
-                                            <li>Все</li>
+                                            <li data-translate="content">Все</li>
                                         </a>
                                         <?php foreach($category->SubCategories as $subcategory) { ?>
                                         <a href="<?=$this->Root?>/catalog/page/1/?filter=category&id=<?=$subcategory->ID?>">
-                                            <li><?=$subcategory->Name?></li>
+                                            <li data-translate="content"><?=$subcategory->Name?></li>
                                         </a>
                                         <?php } ?>
                                     </ul>
@@ -91,7 +91,7 @@
                             </ul>
                         </ul>
                         <ul class="collapsible<?=$data['Filter'] != 'size' ? ' hidden' : ''?>">
-                            <li class="header">
+                            <li data-translate="content" class="header">
                                 По размерам
                             </li>
                             <ul class="content">
@@ -103,7 +103,7 @@
                         </ul>
                     </div>
                     <a href="<?=$this->Root?>/catalog">
-                        <button>Сбросить фильтры</button>
+                        <button data-translate="content">Сбросить фильтры</button>
                     </a>
                 </div>
             </div>
@@ -113,22 +113,14 @@
                     <article class="item-card">
                         <div class="image" style="background-image: url(<?=$item->Images->ImagesList[0]->Path?>)"></div>
                         <h2><?=$item->Title?></h2>
-                        <h4><?=$item->Category->Name?></h4>
-                        <h4>
-                            <span>
-                                Подробнее
-                            </span>
-                            <span class="material-icons">
-                                keyboard_arrow_right
-                            </span>
-                        </h4>
+                        <h4 data-translate="content"><?=$item->Category->Name?></h4>
                         <h3><?=number_format($item->Price, 0, ',', ' ')?> ₴</h3>
-                        <button data-id="<?=$item->ID?>" class="addtocart<?=$item->InCart ? ' already' : ''?>">
+                        <button>
                             <p>
                                 <span class="icon material-icons">
-                                    <?=$item->InCart ? 'remove_shopping_cart' : 'add_shopping_cart'?>
+                                    double_arrow
                                 </span>
-                                <span class="text"><?=$item->InCart ? 'Убрать из корзины' : 'В корзину'?></span>
+                                <span class="text" data-translate="content">Подробнее</span>
                             </p>
                         </button>
                     </article>

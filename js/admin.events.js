@@ -7,7 +7,9 @@ $(function() {
     });
     $('form .edit').click(function(e) {
         const oldtext = $(this).parent().find('input[name="name"]').attr('value');
-        const newtext = window.prompt('Введите новое название', oldtext);
+
+        var message = lang == 'ua' ? 'Введіть нову назву' : 'Введите новое название';
+        const newtext = window.prompt(message, oldtext);
         $(this).parent().find('input[name="name"]').attr('value', newtext);
         $(this).parent().submit();
         e.preventDefault();
@@ -40,7 +42,8 @@ $(function() {
                     location.reload();
                     return;
                 }
-                alert("Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF");
+                var message = lang == 'ua' ? "Помилка завантаження!\nЗображення має бути у форматі JPG, JPEG, PNG или GIF" : "Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF";
+                alert(message);
             }
         }
     });
@@ -64,7 +67,8 @@ $(function() {
                     location.reload();
                     return;
                 }
-                alert("Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF");
+                var message = lang == 'ua' ? "Помилка завантаження!\nЗображення має бути у форматі JPG, JPEG, PNG или GIF" : "Ошибка загрузки!\nИзображение должно быть в формате JPG, JPEG, PNG или GIF";
+                alert(message);
             } else {
                 $new.attr('data-filename', result.filename);
             }
@@ -75,7 +79,9 @@ $(function() {
         const id = $(this).attr('data-id');
         const filename = $(this).attr('data-filename');
 
-        const confirm = window.confirm('Вы уверены что хотите удалить это фото?');
+        var message = lang == 'ua' ? 'Вы впевнені, що хочете видалити це фото?' : 'Вы уверены что хотите удалить это фото?';
+        const confirm = window.confirm(message);
+
 
         if(!confirm) return;
 
@@ -86,7 +92,8 @@ $(function() {
                 location.reload();
                 return;
             }
-            alert("Ошибка удаления!");
+            var message = lang == 'ua' ? 'Помилка видалення!' : 'Ошибка удаления!';
+            alert(message);
         } else {
             $(this).detach();
         }

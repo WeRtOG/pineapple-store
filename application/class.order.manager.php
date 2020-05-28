@@ -33,8 +33,13 @@
          * @param int $totalPrice Общая стоимость
          * @return int ID заказа
          */
-        public function NewOrder(int $clientID, int $city, int $warehouse, int $totalPrice) : int {
-            $result = $this->DB->call_function('addOrderClient', [$clientID, 1, $city, $warehouse, $totalPrice]);
+        public function NewOrder(int $clientID, int $city, int $warehouse, int $totalPrice, int $paytype) : int {
+            $paytypes = [
+                'Оплата картой',
+                'Наложенный платёж'
+            ];
+            $paytype_name = $paytypes[$paytype];
+            $result = $this->DB->call_function('addOrderClient', [$clientID, 1, $city, $warehouse, $totalPrice, $paytype_name]);
             return $result != null ? $result : -1;
         }
         /**
@@ -52,7 +57,8 @@
                 'Warehouse' => $item['Warehouse'],
                 'TotalPrice' => (float)$item['TotalPrice'],
                 'Items' => $this->GetOrderItems($item['ID']),
-                'CityName' => $item['CityName']
+                'CityName' => $item['CityName'],
+                'PaymentType' => empty($item['PaymentType']) ? 'Неизвестен' : $item['PaymentType']
             ]);
         }
         /**

@@ -41,8 +41,9 @@
 					case 'POST':
 						$city = (int)$this->AuthHelper->POSTSafeField('city');
 						$warehouse = (int)$this->AuthHelper->POSTSafeField('warehouse');
+						$paytype = (int)$this->AuthHelper->POSTSafeField('paytype');
 						
-						$this->OrderManager->NewOrder($this->SessionClient->Client->ID, $city, $warehouse, $data['TotalPrice']);
+						$this->OrderManager->NewOrder($this->SessionClient->Client->ID, $city, $warehouse, $data['TotalPrice'], $paytype);
 						$this->View->Generate('cart_order_success_view.php', 'Заказ успешно оформлен!', 'template_view.php', $data);
 						echo '<meta http-equiv="refresh" content="5;URL=' . $this->View->Root . '/cabinet" />';
 						break;

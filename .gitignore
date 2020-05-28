@@ -1,3 +1,4 @@
 uploads/cache/*
 uploads/product/*
 uploads/user/avatar/*
+application/translate_cache/*

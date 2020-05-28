@@ -10,7 +10,6 @@
             $this->APIKey = $APIKey;
         }
         private function MakeRequest(array $parameters) : object {
-            $parameters['methodProperties']['Language'] = 'ru';
             $parameters['apiKey'] = $this->APIKey;
 
             $json = json_encode($parameters);
@@ -46,7 +45,7 @@
                 'modelName' => 'AddressGeneral',
                 'calledMethod' => 'getWarehouses',
                 'methodProperties' => [
-                    'CityName' => $city
+                    'CityName' => $city,
                 ]
             ]);
         }

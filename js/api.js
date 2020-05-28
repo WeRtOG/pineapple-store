@@ -11,6 +11,17 @@ class API {
         return await response.json();
     }
     /**
+     * Метод для перевода текста
+     * @param string text
+     */
+    async TranslateUA(text) {
+        let formData = new FormData();
+
+        formData.append("text", text);
+        const response = await fetch(http_root + '/api/TranslateUA', {method: "POST", body: formData});
+        return await response.json();
+    }
+    /**
      * Метод для загрузки аватара
      * @param {File} file 
      */

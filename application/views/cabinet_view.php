@@ -10,10 +10,10 @@
                 <input type="file" accept="image/*" id="AvatarUpload"/>
             </div>
             <div class="actions">
-                <h3 class="changename">Изменить имя</h3>
-                <h3 class="changepassword">Изменить пароль</h3>
+                <h3 data-translate="content" class="changename">Изменить ФИО</h3>
+                <h3 data-translate="content" class="changepassword">Изменить пароль</h3>
                 <a class="logout" href="<?=$this->Root?>/auth/logout">
-                    <span>Выйти</span>
+                    <span data-translate="content">Выйти</span>
                     <span class="material-icons">
                         exit_to_app
                     </span>
@@ -29,10 +29,10 @@
                 <div class="order">
                     <div class="image" style="background-image: url(<?=$order->Items[0]->Product->Images->ImagesList[0]->Path?>)"></div>
                     <div class="info">
-                        <h1>Заказ #<?=$order->ID?></h1>
-                        <h2><b>Статус заказа: </b><?=$order->Status->Name?></h2>
-                        <h2><b>Общая стоимость заказа: </b><?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
-                        <h2><b>Доставка: </b><?=$order->CityName?>, отделение Новой Почты №<?=$order->Warehouse?></h2>
+                        <h1 data-translate="content">Заказ #<?=$order->ID?></h1>
+                        <h2><b data-translate="content">Статус заказа:</b>&nbsp;<span data-translate="content"><?=$order->Status->Name?></span></h2>
+                        <h2><b data-translate="content">Общая стоимость заказа:</b>&nbsp;<?=number_format($order->TotalPrice, 2, ',', ' ')?> ₴</h2>
+                        <h2><b data-translate="content">Доставка:</b>&nbsp;<?=$order->CityName?>,&nbsp;<span data-translate="content">отделение Новой Почты</span>&nbsp;№<?=$order->Warehouse?></h2>
                     </div>
                     <button class="toggle">
                         <span class="material-icons">
@@ -46,9 +46,9 @@
                         <div class="image" style="background-image: url(<?=$item->Product->Images->ImagesList[0]->Path?>)"></div>
                         <div class="info">
                             <h1><a href="<?=$this->Root?>/catalog/product/<?=$item->Product->ID?>" target="_blank"><?=$item->Product->Title?></a></h1>
-                            <h2><b>Выбранный цвет: </b><?=$item->ColorName != null ? $item->ColorName : 'По-умолчанию' ?></h2>
-                            <h2><b>Выбранный размер: </b><?=$item->Size != null ? $item->Size : 'По-умолчанию' ?></h2>
-                            <h2><b>Стоимость: </b><?=$item->Amount?> <b>x</b> <?=number_format($item->Product->Price, 2, ',', ' ')?> <b>=</b> <?=number_format($item->Product->Price * $item->Amount, 2, ',', ' ')?> ₴</h2>
+                            <h2><b data-translate="content">Выбранный цвет: </b><span data-translate="content"><?=$item->ColorName != null ? $item->ColorName : 'По-умолчанию' ?></span></h2>
+                            <h2><b data-translate="content">Выбранный размер: </b><span data-translate="content"><?=$item->Size != null ? $item->Size : 'По-умолчанию' ?></span></h2>
+                            <h2><b data-translate="content">Стоимость: </b><?=$item->Amount?> <b>x</b> <?=number_format($item->Product->Price, 2, ',', ' ')?> <b>=</b> <?=number_format($item->Product->Price * $item->Amount, 2, ',', ' ')?> ₴</h2>
                         </div>
                     </div>
                     <?php } ?>
@@ -69,8 +69,8 @@
             </span>
         </button>
         <form action="<?=$this->Root?>/cabinet/ChangeName" method="POST">
-            <input required type="name" name="name" placeholder="Новое имя"/>
-            <input type="submit" value="Изменить"/>
+            <input data-translate="placeholder" required type="name" name="name" placeholder="Новое ФИО"/>
+            <input data-translate="value" type="submit" value="Изменить"/>
         </form>
     </section>
 </section>
@@ -82,8 +82,8 @@
             </span>
         </button>
         <form action="<?=$this->Root?>/cabinet/ChangePassword" method="POST">
-            <input required minlength="6" name="password" type="password" placeholder="Новый пароль"/>
-            <input type="submit" value="Изменить"/>
+            <input data-translate="placeholder" required minlength="6" name="password" type="password" placeholder="Новый пароль"/>
+            <input data-translate="value" type="submit" value="Изменить"/>
         </form>
     </section>
 </section>

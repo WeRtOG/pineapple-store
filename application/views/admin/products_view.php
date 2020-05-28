@@ -5,7 +5,7 @@
                 <span class="material-icons">
                     add_circle_outline
                 </span>
-                <span>
+                <span data-translate="content">
                     Добавить товар
                 </span>
             </h1>
@@ -14,15 +14,15 @@
     <?php foreach($data['Products'] as $product) { ?>
     <section class="card product">
         <div class="image" style="background-image: url(<?=$product->Images->ImagesList[0]->Path?>)"></div>
-        <h1 class="name"><a href="<?=$this->Root?>/catalog/product/<?=$product->ID?>" target="_blank"><?=$product->Name?><span> (<?=$product->Category->Name?>)</span></a></h1>
+        <h1 class="name"><a href="<?=$this->Root?>/catalog/product/<?=$product->ID?>" target="_blank"><?=$product->Name?>&nbsp;<span data-translate="content">(<?=$product->Category->Name?>)</span></a></h1>
         <div class="actions">
             <form action="<?=$this->Root?>/admin/editproduct/<?=$product->ID?>/">
-                <input title="Редактировать" type="submit" value="edit"/>
+                <input data-translate="title" title="Редактировать" type="submit" value="edit"/>
             </form>
-            <form action="<?=$this->Root?>/admin/deleteproduct" data-confirm="Вы уверены, что хотите удалить этот товар?" method="POST">
+            <form data-translate="confirm" action="<?=$this->Root?>/admin/deleteproduct" data-confirm="Вы уверены, что хотите удалить этот товар?" method="POST">
                 <input type="hidden" name="id" value="<?=$product->ID?>"/>
                 <input type="hidden" name="page" value="<?=$data['Page']?>"/>
-                <input title="Удалить" type="submit" value="delete_forever"/>
+                <input data-translate="title" title="Удалить" type="submit" value="delete_forever"/>
             </form>
         </div>
     </section>

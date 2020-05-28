@@ -18,6 +18,7 @@
         public string $Warehouse;
         public float $TotalPrice;
         public string $CityName;
+        public string $PaymentType = 'Неизвестно';
 
         /**
          * Конструктор объекта заказа

@@ -33,45 +33,48 @@
             <section class="sidebar anix">
                 <a href="<?=$this->Root?>/admin/brands" <?=$controller_action == 'brands' ? 'class="active"' : ''?>>
                     <span class="material-icons">label</span>
-                    <span class="text">Бренды</span>
+                    <span data-translate="content" class="text">Бренды</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/categories" <?=$controller_action == 'categories' ? 'class="active"' : ''?>>
                     <span class="material-icons">category</span>
-                    <span class="text">Категории</span>
+                    <span data-translate="content" class="text">Категории</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/products" <?=$controller_action == 'products' || $controller_action == 'editproduct' || $controller_action == 'addproduct' ? 'class="active"' : ''?>>
                     <span class="material-icons">storefront</span>
-                    <span class="text">Товары</span>
+                    <span data-translate="content" class="text">Товары</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/seasons" <?=$controller_action == 'seasons' ? 'class="active"' : ''?>>
                     <span class="material-icons">beach_access</span>
-                    <span class="text">Сезоны</span>
+                    <span data-translate="content" class="text">Сезоны</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/sizes" <?=$controller_action == 'sizes' ? 'class="active"' : ''?>>
                     <span class="material-icons">square_foot</span>
-                    <span class="text">Размеры</span>
+                    <span data-translate="content" class="text">Размеры</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/colors" <?=$controller_action == 'colors' ? 'class="active"' : ''?>>
                     <span class="material-icons">invert_colors</span>
-                    <span class="text">Цвета</span>
+                    <span data-translate="content" class="text">Цвета</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/orders" <?=$controller_action == 'orders' ? 'class="active"' : ''?>>
                     <span class="material-icons">all_inbox</span>
-                    <span class="text">Заказы</span>
+                    <span data-translate="content" class="text">Заказы</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/clients" <?=$controller_action == 'clients' ? 'class="active"' : ''?>>
                     <span class="material-icons">people_outline</span>
-                    <span class="text">Клиенты</span>
+                    <span data-translate="content" class="text">Клиенты</span>
                 </a>
                 <a href="<?=$this->Root?>/admin/logout">
                     <span class="material-icons">exit_to_app</span>
-                    <span class="text">Выйти</span>
+                    <span data-translate="content" class="text">Выйти</span>
                 </a>
             </section>
             <section class="content anix">
                 <?php include 'application/views/'.$content_view; ?>
             </section>
         </section>
+        <div class="loading-screen<?=$_COOKIE['lang'] != 'ua' ? ' hidden collapsed' : ''?>">
+			Завантаження...
+		</div>
         <script src="/cdn/jquery.js"></script>
 		<script src="/cdn/transit.js"></script>
 		<script src="/cdn/anix.js?v=6"></script>
@@ -79,7 +82,8 @@
             $this -> LoadJS($this->Root . '/js/admin.api.js');
 			$this -> LoadJS($this->Root . '/js/admin.methods.js');
 			$this -> LoadJS($this->Root . '/js/admin.events.js');
-			$this -> LoadJS($this->Root . '/js/admin.main.js');
+            $this -> LoadJS($this->Root . '/js/admin.main.js');
+            $this -> LoadJS($this->Root . '/js/translate.js');
         ?>
     </body>
 </html>

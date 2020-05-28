@@ -3,7 +3,7 @@
     <a href="<?=$this->Root?>/admin/categories">
         <button class="back-button">
             <span class="material-icons">keyboard_arrow_left</span>
-            <span>Назад</span>
+            <span data-translate="content">Назад</span>
         </button>
     </a>
     <?php } ?>
@@ -15,19 +15,19 @@
                 <input type="hidden" name="parentID" value="<?=$data['ParentID']?>"/>
                 <input type="hidden" name="id" value="<?=$category->ID?>"/>
                 <input type="hidden" name="name" value="<?=$category->Name?>"/>
-                <input title="Редактировать" type="submit" class="edit" value="edit"/>
+                <input data-translate="title" title="Редактировать" type="submit" class="edit" value="edit"/>
             </form>
-            <form action="<?=$this->Root?>/admin/deletecategory" data-confirm="Вы уверены, что хотите удалить эту категорию? Удаление категории может затронуть некоторые товары и затронет все вложенные подкатегории" method="POST">
+            <form action="<?=$this->Root?>/admin/deletecategory" data-translate="confirm" data-confirm="Вы уверены, что хотите удалить эту категорию? Удаление категории может затронуть некоторые товары и затронет все вложенные подкатегории" method="POST">
                 <input type="hidden" name="parentID" value="<?=$data['ParentID']?>"/>
                 <input type="hidden" name="id" value="<?=$category->ID?>"/>
-                <input title="Удалить" type="submit" value="delete_forever"/>
+                <input data-translate="title" title="Удалить" type="submit" value="delete_forever"/>
             </form>
         </div>
     </section>
     <?php } ?>
     <form action="<?=$this->Root?>/admin/addcategory" method="POST" class="card add">
         <input type="hidden" name="parentID" value="<?=$data['ParentID']?>"/>
-        <input type="category" name="category" placeholder="Название категории" />
-        <input type="submit" value="Добавить" />
+        <input data-translate="placeholder" type="category" name="category" placeholder="Название категории (на русском)" />
+        <input data-translate="value" type="submit" value="Добавить" />
     </form>
 </section>

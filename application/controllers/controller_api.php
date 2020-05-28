@@ -1,4 +1,5 @@
 <?php
+    
     /**
      * Контроллер API
      */
@@ -9,7 +10,7 @@
          */
         public function __construct()
         {
-            global $session_client, $clientMgr, $productMgr, $auth_helper, $cart, $npAPI, $adminAuth, $citiesMgr;
+            global $session_client, $clientMgr, $productMgr, $auth_helper, $cart, $npAPI, $adminAuth, $citiesMgr, $translator;
 
             $this->SessionClient = $session_client;
             $this->ClientManager = $clientMgr;
@@ -20,6 +21,7 @@
             $this->Cart = $cart;
             $this->NPAPI = $npAPI;
             $this->CitiesManager = $citiesMgr;
+            $this->Translator = $translator;
         }
         /**
          * Экшн коренной страницы
@@ -27,6 +29,23 @@
 		public function action_index()
 		{
             $this -> action_404();
+        }
+        public function action_TranslateUA()
+        {
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $this->action_400();
+                    break;
+                case 'POST':
+                    $text = $_POST['text'];
+                    $result = $this->Translator->TranslateBigText($text);
+                    API::Answer([
+                        'ok' => true,
+                        'code' => 200,
+                        'result' => $result
+                    ]);
+                    break;
+            }
         }
         /**
          * Экшн загрузки аватара
@@ -321,6 +340,22 @@
                 'ok' => true,
                 'code' => 200,
                 'result' => $result
+            ]);
+        }
+        public function action_ClearUnusedCities() {
+            /*set_time_limit(0);
+            $cities = $this->CitiesManager->GetAllCities();
+            foreach($cities as $city) {
+                $result = $this->NPAPI->GetCityWarehouses($city['Name']);
+                if(empty($result->data)) {
+                    $this->CitiesManager->DeleteCity($city['ID']);
+                    echo "Город " . $city['Name'] . " удалён<br>";
+                }
+            }*/
+            API::Answer([
+                'ok' => false,
+                'code' => 200,
+                'error' => 'Not allowed.'
             ]);
         }
         /**

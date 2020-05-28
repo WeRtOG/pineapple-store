@@ -37,5 +37,19 @@
             if($result != null) foreach($result as $item) $list[] = $item;
             return $list;
         }
+        /**
+         * Метод для получения неуникального списка городов
+         * @return array Неуникальный список городов
+         */
+        public function GetAllCities() : array {
+           return $this->DB->fetch_query("SELECT * FROM cities", true);
+        }
+        /**
+         * Метод для удаления города
+         * @param int $ID ID города
+         */
+        public function DeleteCity(int $ID) {
+            $this->DB->fetch_query("DELETE FROM cities WHERE ID='$ID'");
+        }
     }
 ?>

@@ -59,9 +59,17 @@ header a {
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
 }
-header a.auth {
+header a.auth, header a.lang {
     font-weight: 200;
     color: rgba(255,255,255,.6);
+}
+header a.lang {
+    min-width: 50px;
+    cursor: pointer;
+}
+.lang-select {
+    margin-left: 20px;
+    display: flex;
 }
 header a:hover {
     background: rgba(255,255,255,.02);
@@ -405,6 +413,9 @@ article.item-card button:hover {
     content: "Товары по данному запросу не найдены..";
     font-size: 32px;
     opacity: .3;
+}
+html[lang=ua] .catalog-wrapper .catalog .all-items-content.no-data::after {
+    content: "Товари по даному запиту не знайдені..";
 }
 .auth-form-wrapper {
     padding-top: 80px;
@@ -998,12 +1009,15 @@ form input[type=submit]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    content: 'Корзина пуста.';
     color: white;
     font-size: 48px;
     font-weight: 200;
     font-family: 'Roboto', sans-serif;
     opacity: .3;
+    content: 'Корзина пуста.';
+}
+html[lang=ua] .cart-page.empty::after {
+    content: 'Кошик пустий.';
 }
 .cart-page .bottom {
     display: flex;
@@ -1239,6 +1253,26 @@ button.addtocart.already {
     justify-content: center;
     align-items: center;
     user-select: none;
+}
+.loading-screen {
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--ui-gradient);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.loading-screen.hidden {
+    opacity: 0;
+}
+.loading-screen.collapsed {
+    display: none;
 }
 @media (min-device-width: 2000px){
     html{
