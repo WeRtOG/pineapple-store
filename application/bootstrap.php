@@ -47,6 +47,12 @@
 	require_once 'class.order.php';
 	require_once 'class.translate.php';
 
+	
+	if(!isset($_COOKIE['lang'])) {
+	    setcookie("lang", "ua");
+	    $_COOKIE['lang'] = 'ua';
+	}
+
 	$db = new DatabaseManager\Database('localhost', 'admin', '4TE5CF67C5', 'pineapple_shoes'); // Подключаемся к БД
 	
 	$clientMgr = new ClientManager\ClientManager($db); // Инициализируем менеджер клиентов
